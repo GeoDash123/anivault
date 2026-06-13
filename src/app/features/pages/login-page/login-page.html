@@ -1,0 +1,212 @@
+<div class="min-h-screen bg-gray-100">
+
+  <!-- HERO -->
+  <section
+    class="h-80 bg-gradient-to-r from-slate-100 to-gray-200 flex flex-col justify-center items-center text-center">
+
+    <h1 class="text-5xl font-bold text-slate-900">
+      Inicia sesión
+    </h1>
+
+    <p class="mt-4 text-gray-600">
+      Accede a tu cuenta para guardar y seguir tus animes favoritos.
+    </p>
+
+  </section>
+
+  <!-- CONTENT -->
+  <section
+    class="max-w-6xl mx-auto -mt-16 px-4 pb-10">
+
+    <div
+      class="grid md:grid-cols-3 gap-6">
+
+      <!-- LOGIN CARD -->
+      <div
+        class="md:col-span-2 bg-white rounded-2xl shadow-lg p-8">
+
+        <div class="text-center mb-8">
+
+          <div
+            class="w-16 h-16 rounded-full bg-blue-100 mx-auto flex items-center justify-center">
+
+            🔒
+
+          </div>
+
+          <h2 class="text-2xl font-semibold mt-4">
+            Bienvenido de nuevo
+          </h2>
+
+          <p class="text-gray-500">
+            Nos alegra verte otra vez.
+          </p>
+
+        </div>
+
+        <!-- EMAIL -->
+        <div class="mb-4">
+
+          <label class="block mb-2 font-medium">
+            Correo electrónico
+          </label>
+
+          <input
+            type="email"
+            [(ngModel)]="email"
+            class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Correo electrónico">
+
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="mb-4">
+
+          <label class="block mb-2 font-medium">
+            Contraseña
+          </label>
+
+          <div class="relative">
+
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              class="w-full border rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Contraseña">
+
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute right-3 top-3 text-gray-500">
+
+              {{ showPassword ? '🙈' : '👁️' }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- MENSAJES -->
+        <div *ngIf="errorMessage"
+          class="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
+          {{ errorMessage }}
+        </div>
+
+        <div *ngIf="successMessage"
+          class="bg-green-100 text-green-700 p-3 rounded-lg mb-4">
+          {{ successMessage }}
+        </div>
+
+        <!-- LOGIN -->
+        <button
+          (click)="login()"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition">
+
+          Iniciar sesión
+
+        </button>
+
+        <!-- LINKS -->
+        <div
+          class="flex justify-between mt-4 text-sm">
+
+          <a
+            href="#"
+            class="text-blue-600 hover:underline">
+
+            ¿Olvidaste tu contraseña?
+
+          </a>
+
+          <a
+            href="#"
+            class="text-blue-600 hover:underline">
+
+            Crear cuenta
+
+          </a>
+
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="my-8 flex items-center">
+
+          <div class="flex-1 border-t"></div>
+
+          <span class="mx-4 text-gray-500">
+            o continuar con
+          </span>
+
+          <div class="flex-1 border-t"></div>
+
+        </div>
+
+        <!-- SOCIAL -->
+        <div
+          class="grid grid-cols-2 gap-4">
+
+          <button
+            class="border rounded-lg py-3 hover:bg-gray-50">
+            Google
+          </button>
+
+          <button
+            class="border rounded-lg py-3 hover:bg-gray-50">
+            GitHub
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- BENEFICIOS -->
+      <div
+        class="bg-white rounded-2xl shadow-lg p-8">
+
+        <h3
+          class="text-xl font-semibold mb-6">
+          Beneficios de tu cuenta
+        </h3>
+
+        <div class="space-y-6">
+
+          <div>
+            <h4 class="font-medium">
+              Guarda tus favoritos
+            </h4>
+
+            <p class="text-sm text-gray-500">
+              Organiza tus animes favoritos.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-medium">
+              Sigue tu progreso
+            </h4>
+
+            <p class="text-sm text-gray-500">
+              Continúa donde lo dejaste.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-medium">
+              Descubre más animes
+            </h4>
+
+            <p class="text-sm text-gray-500">
+              Recomendaciones personalizadas.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
