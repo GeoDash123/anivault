@@ -22,4 +22,9 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/pages/favorites/favorites').then(m => m.Favorites)
     },
+    {
+        path: 'anime/:id',
+        loadComponent: () =>
+            import('./features/pages/anime-detail/anime-detail').then(m => m.AnimeDetail)
+    },
 ];

@@ -6,7 +6,11 @@
     {{ isFavorite() ? '♥' : '♡' }}
   </button>
 
-  <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
+  <img
+    [routerLink]="['/anime', anime.mal_id]"
+    [src]="anime.images.jpg.image_url"
+    [alt]="anime.title"
+  />
 
   <div class="card-body">
     <h3>{{ anime.title }}</h3>

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FavoritesService } from '../../../core/services/favorites.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-anime-card',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './anime-card.html',
   styleUrl: './anime-card.css',
 })

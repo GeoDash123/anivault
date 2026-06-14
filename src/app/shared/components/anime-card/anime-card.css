@@ -74,3 +74,8 @@
 .heart.active {
   color: #ef4444;
 }
+
+.anime-card img,
+.card-body h3 {
+  cursor: pointer;
+}

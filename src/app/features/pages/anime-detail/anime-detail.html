@@ -1,0 +1,43 @@
+<p *ngIf="loading">Cargando detalle...</p>
+<p *ngIf="error">{{ error }}</p>
+
+<main class="detail-page" *ngIf="anime && !loading">
+  <button class="back-btn" type="button" (click)="goBack()">
+    ← Volver
+  </button>
+
+  <section class="detail-card">
+    <img
+      class="poster"
+      [src]="anime.images.jpg.large_image_url"
+      [alt]="anime.title"
+    />
+
+    <div class="info">
+      <span class="tag">{{ anime.type || 'Anime' }}</span>
+
+      <h1>{{ anime.title }}</h1>
+
+      <p class="japanese-title" *ngIf="anime.title_japanese">
+        {{ anime.title_japanese }}
+      </p>
+
+      <div class="stats">
+        <span>⭐ {{ anime.score || 'N/A' }}</span>
+        <span>{{ anime.episodes || '?' }} episodios</span>
+        <span>{{ anime.status || 'Sin estado' }}</span>
+        <span>{{ anime.year || 'Sin año' }}</span>
+      </div>
+
+      <p class="synopsis">
+        {{ anime.synopsis || 'Sin sinopsis disponible.' }}
+      </p>
+
+      <div class="genres" *ngIf="anime.genres?.length">
+        <span *ngFor="let genre of anime.genres">
+          {{ genre.name }}
+        </span>
+      </div>
+    </div>
+  </section>
+</main>
