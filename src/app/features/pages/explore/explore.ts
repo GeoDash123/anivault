@@ -62,10 +62,12 @@ export class Explore implements OnInit {
       next: (response: any) => {
         this.animes = response.data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.error = 'No se pudo realizar la búsqueda.';
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
