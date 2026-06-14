@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, afterNextRender } from '@angular/core';
+import { Component, afterNextRender, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -18,10 +18,13 @@ export class NotFound {
     'https://httpcats.com/404.jpg'
   ];
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     afterNextRender(() => {
       const randomIndex = Math.floor(Math.random() * this.errorImages.length);
+
       this.errorImage = this.errorImages[randomIndex];
+
+      this.cdr.detectChanges();
     });
   }
 }

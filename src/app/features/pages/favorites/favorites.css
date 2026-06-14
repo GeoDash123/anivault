@@ -1,8 +1,8 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f8fafc;
-  color: #111827;
+  background: var(--bg-main);
+  color: var(--text-main);
   font-family: Inter, Arial, sans-serif;
 }
 
@@ -10,10 +10,8 @@
   min-height: 230px;
   text-align: center;
   padding: 50px 20px;
-  background:
-    linear-gradient(rgba(248, 250, 252, .84), rgba(248, 250, 252, .92)),
-    linear-gradient(120deg, #e5e7eb, #ffffff, #dbeafe);
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--hero-bg);
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .hero h1 {
@@ -24,17 +22,18 @@
 
 .hero p {
   margin: 0;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 18px;
 }
 
+.favorites-page,
 .top-page {
   padding: 24px 40px;
 }
 
 .results {
-  background: white;
-  border: 1px solid #dbe3ef;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 22px;
 }
@@ -49,25 +48,36 @@
 .section-header h2 {
   margin: 0;
   font-size: 24px;
+  color: var(--text-main);
 }
 
 .section-header p {
   margin: 4px 0 0;
-  color: #64748b;
-}
-
-.section-header select {
-  border: 1px solid #dbe3ef;
-  border-radius: 8px;
-  padding: 10px 14px;
-  background: white;
-  color: #475569;
+  color: var(--text-muted);
 }
 
 .anime-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
+}
+
+.empty-state {
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 48px 20px;
+  text-align: center;
+  background: var(--bg-soft);
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+  color: var(--text-main);
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--text-muted);
 }
 
 @media (max-width: 1200px) {
@@ -83,6 +93,7 @@
 }
 
 @media (max-width: 640px) {
+  .favorites-page,
   .top-page {
     padding: 16px;
   }

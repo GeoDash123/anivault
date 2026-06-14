@@ -1,7 +1,7 @@
 .navbar {
   height: 76px;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-soft);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,15 +16,21 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: #111827;
+  color: var(--text-main);
   font-size: 30px;
   font-weight: 800;
 }
 
 .logo {
-  color: #006eff;
+  color: var(--primary);
   font-size: 34px;
   line-height: 1;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .nav-links {
@@ -38,23 +44,68 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #475569;
+  color: var(--text-soft);
   font-size: 16px;
   font-weight: 500;
   border-bottom: 3px solid transparent;
 }
 
-.nav-links a:hover {
-  color: #006eff;
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary);
 }
 
 .nav-links a.active {
-  color: #006eff;
-  border-bottom-color: #006eff;
+  border-bottom-color: var(--primary);
   font-weight: 700;
 }
 
-@media (max-width: 760px) {
+.theme-toggle {
+  width: 62px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-main);
+  position: relative;
+  cursor: pointer;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 6px 16px var(--shadow-soft);
+}
+
+.toggle-icon {
+  font-size: 14px;
+  z-index: 2;
+  line-height: 1;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--primary);
+  transition: transform .25s ease, background-color .25s ease;
+}
+
+.theme-toggle.dark {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.theme-toggle.dark .toggle-thumb {
+  transform: translateX(30px);
+  background: #60a5fa;
+}
+
+@media (max-width: 900px) {
   .navbar {
     padding: 0 18px;
   }
@@ -67,11 +118,35 @@
     font-size: 28px;
   }
 
+  .nav-right {
+    gap: 12px;
+  }
+
   .nav-links {
     gap: 18px;
   }
 
   .nav-links a {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-links {
+    display: none;
+  }
+
+  .theme-toggle {
+    width: 56px;
+    height: 30px;
+  }
+
+  .toggle-thumb {
+    width: 22px;
+    height: 22px;
+  }
+
+  .theme-toggle.dark .toggle-thumb {
+    transform: translateX(26px);
   }
 }

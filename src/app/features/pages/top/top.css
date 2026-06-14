@@ -1,8 +1,8 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f8fafc;
-  color: #111827;
+  background: var(--bg-main);
+  color: var(--text-main);
   font-family: Inter, Arial, sans-serif;
 }
 
@@ -10,10 +10,8 @@
   min-height: 250px;
   text-align: center;
   padding: 44px 20px;
-  background:
-    linear-gradient(rgba(248,250,252,.82), rgba(248,250,252,.9)),
-    linear-gradient(120deg, #e5e7eb, #ffffff, #dbeafe);
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--hero-bg);
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .hero h1 {
@@ -24,7 +22,7 @@
 
 .hero p {
   margin: 0 0 26px;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 18px;
 }
 
@@ -32,11 +30,11 @@
   max-width: 620px;
   margin: 0 auto;
   display: flex;
-  background: white;
-  border: 1px solid #dbe3ef;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
   border-radius: 9px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 20px var(--shadow-soft);
 }
 
 .search-box input {
@@ -45,15 +43,27 @@
   padding: 16px 20px;
   font-size: 15px;
   outline: none;
+  background: transparent;
+  color: var(--text-main);
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
 }
 
 .search-box button {
   border: none;
-  background: #006eff;
+  background: var(--primary);
   color: white;
   padding: 0 28px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.search-box button:hover,
+.detail-btn:hover,
+.more-btn:hover {
+  background: var(--primary-hover);
 }
 
 .top-layout {
@@ -66,8 +76,8 @@
 .ranking-panel,
 .featured-card,
 .trending-card {
-  background: white;
-  border: 1px solid #dbe3ef;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 22px;
 }
@@ -85,19 +95,20 @@
   margin: 0;
   font-size: 22px;
   font-weight: 800;
+  color: var(--text-main);
 }
 
 .section-header p {
   margin: 5px 0 0;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .section-header select {
-  border: 1px solid #dbe3ef;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 10px 14px;
-  background: white;
-  color: #475569;
+  background: var(--bg-surface);
+  color: var(--text-soft);
 }
 
 .ranking-grid {
@@ -111,24 +122,24 @@
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 16px;
-  border: 1px solid #dbe3ef;
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
-  background: white;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--bg-surface);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .ranking-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 22px var(--shadow-soft);
 }
 
 .rank-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: #006eff;
+  background: var(--primary);
   color: white;
   padding: 5px 9px;
   border-radius: 7px;
@@ -142,6 +153,7 @@
   height: 150px;
   border-radius: 8px;
   object-fit: cover;
+  background: var(--bg-muted);
 }
 
 .ranking-info {
@@ -155,11 +167,18 @@
   font-size: 17px;
   font-weight: 800;
   line-height: 1.3;
+  color: var(--text-main);
+}
+
+.ranking-info p,
+.meta,
+.synopsis,
+.trend-item p {
+  color: var(--text-soft);
 }
 
 .ranking-info p {
   margin: 0 0 12px;
-  color: #475569;
   font-size: 14px;
 }
 
@@ -171,8 +190,8 @@
 
 .badges span,
 .trend-item span {
-  background: #eff6ff;
-  color: #006eff;
+  background: var(--primary-soft);
+  color: var(--primary);
   border-radius: 6px;
   padding: 5px 9px;
   font-size: 12px;
@@ -191,22 +210,22 @@
   object-fit: cover;
   border-radius: 10px;
   margin: 18px 0 14px;
+  background: var(--bg-muted);
 }
 
 .featured-card h3 {
   margin: 0 0 8px;
   font-size: 21px;
   font-weight: 800;
+  color: var(--text-main);
 }
 
 .meta {
-  color: #475569;
   font-size: 14px;
   margin: 0 0 12px;
 }
 
 .synopsis {
-  color: #475569;
   font-size: 14px;
   line-height: 1.5;
   display: -webkit-box;
@@ -218,7 +237,7 @@
 .detail-btn,
 .more-btn {
   border: none;
-  background: #006eff;
+  background: var(--primary);
   color: white;
   height: 44px;
   border-radius: 8px;
@@ -250,6 +269,7 @@
   height: 90px;
   border-radius: 8px;
   object-fit: cover;
+  background: var(--bg-muted);
 }
 
 .trend-item h3 {
@@ -257,11 +277,11 @@
   font-size: 15px;
   font-weight: 800;
   line-height: 1.25;
+  color: var(--text-main);
 }
 
 .trend-item p {
   margin: 0 0 8px;
-  color: #475569;
   font-size: 13px;
 }
 

@@ -4,35 +4,43 @@
     <span>AniVault</span>
   </a>
 
-  <nav class="nav-links">
-    <a
-      routerLink="/login"
-      routerLinkActive="active">
-      Login
-    </a>
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">
-      Inicio
-    </a>
+  <div class="nav-right">
+    <nav class="nav-links">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Inicio
+      </a>
 
-    <a
-      routerLink="/explorar"
-      routerLinkActive="active">
-      Explorar
-    </a>
+      <a routerLink="/explorar" routerLinkActive="active">
+        Explorar
+      </a>
 
-    <a
-      routerLink="/top"
-      routerLinkActive="active">
-      Top
-    </a>
+      <a routerLink="/top" routerLinkActive="active">
+        Top
+      </a>
 
-    <a
-      routerLink="/favoritos"
-      routerLinkActive="active">
-      Favoritos
-    </a>
-  </nav>
+      <a routerLink="/favoritos" routerLinkActive="active">
+        Favoritos
+      </a>
+
+      <a routerLink="/login" routerLinkActive="active">
+        Login
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      class="theme-toggle"
+      [class.dark]="themeService.isDark()"
+      (click)="themeService.toggleTheme()"
+      [attr.aria-label]="themeService.isDark() ? 'Activar modo claro' : 'Activar modo oscuro'">
+
+      <span class="toggle-icon sun">☀️</span>
+      <span class="toggle-icon moon">🌙</span>
+      <span class="toggle-thumb"></span>
+
+    </button>
+  </div>
 </header>

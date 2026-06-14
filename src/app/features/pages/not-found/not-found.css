@@ -1,8 +1,8 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f8fafc;
-  color: #111827;
+  background: var(--bg-main);
+  color: var(--text-main);
   font-family: Inter, Arial, sans-serif;
 }
 
@@ -17,12 +17,12 @@
 .not-found-card {
   max-width: 620px;
   width: 100%;
-  background: white;
-  border: 1px solid #dbe3ef;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 32px;
   text-align: center;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 30px var(--shadow-soft);
 }
 
 .error-cat {
@@ -37,20 +37,25 @@
   margin: 0 0 10px;
   font-size: 36px;
   font-weight: 800;
+  color: var(--text-main);
 }
 
 .not-found-card p {
   margin: 0 0 24px;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 16px;
 }
 
 .home-btn {
   border: none;
-  background: #006eff;
+  background: var(--primary);
   color: white;
   padding: 12px 22px;
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.home-btn:hover {
+  background: var(--primary-hover);
 }

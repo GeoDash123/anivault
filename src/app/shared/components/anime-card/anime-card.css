@@ -4,17 +4,17 @@
 
 .anime-card {
   position: relative;
-  border: 1px solid #dbe3ef;
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   overflow: hidden;
-  background: white;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--bg-surface);
+  box-shadow: 0 8px 18px var(--shadow-card);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .anime-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 24px var(--shadow-soft);
 }
 
 .anime-card img {
@@ -22,21 +22,30 @@
   height: 220px;
   object-fit: cover;
   display: block;
-  background: #e5e7eb;
+  background: var(--bg-muted);
+  cursor: pointer;
 }
 
 .heart {
   position: absolute;
   top: 12px;
   right: 12px;
-  border: none;
-  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border-color);
+  background: color-mix(in srgb, var(--bg-surface) 92%, transparent);
   border-radius: 50%;
   width: 34px;
   height: 34px;
   font-size: 20px;
   cursor: pointer;
-  color: #475569;
+  color: var(--text-soft);
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+.heart:hover,
+.heart.active {
+  color: var(--danger);
 }
 
 .card-body {
@@ -47,13 +56,14 @@
   margin: 0 0 8px;
   font-size: 15px;
   font-weight: 800;
-  color: #111827;
+  color: var(--text-main);
   line-height: 1.3;
+  cursor: pointer;
 }
 
 .card-body p {
   margin: 0 0 10px;
-  color: #475569;
+  color: var(--text-soft);
   font-size: 14px;
 }
 
@@ -63,19 +73,10 @@
 
 .tag {
   display: inline-block;
-  background: #eff6ff;
-  color: #006eff;
+  background: var(--primary-soft);
+  color: var(--primary);
   border-radius: 6px;
   padding: 5px 10px;
   font-size: 12px;
-  font-weight: 600;
-}
-
-.heart.active {
-  color: #ef4444;
-}
-
-.anime-card img,
-.card-body h3 {
-  cursor: pointer;
+  font-weight: 700;
 }

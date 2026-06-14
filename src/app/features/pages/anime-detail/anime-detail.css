@@ -1,8 +1,8 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f8fafc;
-  color: #111827;
+  background: var(--bg-main);
+  color: var(--text-main);
   font-family: Inter, Arial, sans-serif;
 }
 
@@ -13,7 +13,7 @@
 .back-btn {
   border: none;
   background: transparent;
-  color: #006eff;
+  color: var(--primary);
   font-weight: 700;
   margin-bottom: 22px;
   cursor: pointer;
@@ -23,8 +23,8 @@
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: 32px;
-  background: white;
-  border: 1px solid #dbe3ef;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
   padding: 28px;
 }
@@ -33,15 +33,17 @@
   width: 100%;
   border-radius: 12px;
   object-fit: cover;
+  background: var(--bg-muted);
 }
 
 .info h1 {
   font-size: 42px;
   margin: 14px 0 6px;
+  color: var(--text-main);
 }
 
 .japanese-title {
-  color: #64748b;
+  color: var(--text-muted);
   margin-bottom: 20px;
 }
 
@@ -53,14 +55,15 @@
 }
 
 .stats span {
-  background: #f1f5f9;
+  background: var(--bg-soft);
+  color: var(--text-main);
   border-radius: 8px;
   padding: 8px 12px;
   font-weight: 600;
 }
 
 .synopsis {
-  color: #334155;
+  color: var(--text-soft);
   line-height: 1.7;
   max-width: 900px;
 }
@@ -68,8 +71,8 @@
 .tag,
 .genres span {
   display: inline-block;
-  background: #eff6ff;
-  color: #006eff;
+  background: var(--primary-soft);
+  color: var(--primary);
   border-radius: 6px;
   padding: 6px 10px;
   font-size: 13px;

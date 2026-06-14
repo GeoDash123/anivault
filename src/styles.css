@@ -1,3 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
 
+html.dark-theme,
+html.dark-theme body {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
 @import 'tailwindcss';
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-soft: #f1f5f9;
+  --text-main: #111827;
+  --text-muted: #64748b;
+  --border-color: #dbe3ef;
+  --primary: #006eff;
+  --primary-soft: #eff6ff;
+  --shadow-soft: rgba(15, 23, 42, 0.08);
+}
+
+.dark-theme {
+  --bg-main: #0f172a;
+  --bg-surface: #111827;
+  --bg-soft: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --border-color: #334155;
+  --primary: #60a5fa;
+  --primary-soft: #1e3a8a;
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+}
+
+html,
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+* {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
