@@ -40,7 +40,7 @@ export class Login {
       this.successMessage = 'Inicio de sesión exitoso';
 
       setTimeout(() => {
-        this.router.navigate(['/explorar']);
+        this.router.navigate(['']);
       }, 700);
 
       return;

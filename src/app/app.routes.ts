@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
     {
@@ -25,7 +26,8 @@ export const routes: Routes = [
     {
         path: 'favoritos',
         loadComponent: () =>
-            import('./features/pages/favorites/favorites').then(m => m.Favorites)
+            import('./features/pages/favorites/favorites').then(m => m.Favorites),
+        canActivate: [authGuard]
     },
     {
         path: 'anime/:id',
