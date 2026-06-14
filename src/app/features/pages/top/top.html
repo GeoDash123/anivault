@@ -1,14 +1,17 @@
 <section class="hero">
   <h1>Top animes</h1>
   <p>Descubre los animes mejor valorados por la comunidad.</p>
+
 </section>
 
-<main class="top-page">
-  <section class="results">
+<main class="top-layout">
+
+  <section class="ranking-panel">
+
     <div class="section-header">
       <div>
-        <h2>Ranking principal</h2>
-        <p>{{ animes.length }} animes encontrados</p>
+        <h2>Top {{ visibleAnimes.length }}</h2>
+        <p>Los animes mejor posicionados actualmente</p>
       </div>
 
       <select>
@@ -19,7 +22,7 @@
 
     <app-loading
       *ngIf="loading"
-      message="Buscando animes...">
+      message="Cargando ranking de animes...">
     </app-loading>
 
     <app-error-message
@@ -27,15 +30,119 @@
       [message]="error">
     </app-error-message>
 
-    <div class="anime-grid" *ngIf="!loading && animes.length > 0">
-      <app-anime-card
-        *ngFor="let anime of animes"
-        [anime]="anime">
-      </app-anime-card>
+    <div class="ranking-grid" *ngIf="!loading && visibleAnimes.length > 0">
+
+      <article
+        class="ranking-card"
+        *ngFor="let anime of visibleAnimes; let i = index"
+        [routerLink]="['/anime', anime.mal_id]">
+
+        <div class="rank-badge">
+          #{{ anime.rank || i + 1 }}
+        </div>
+
+        <img
+          [src]="anime.images.jpg.image_url"
+          [alt]="anime.title"
+        />
+
+        <div class="ranking-info">
+          <h3>{{ anime.title }}</h3>
+
+          <p>
+            ⭐ {{ anime.score || 'N/A' }}
+            <span>·</span>
+            {{ anime.episodes || '?' }} episodios
+          </p>
+
+          <div class="badges">
+            <span>{{ anime.type || 'Anime' }}</span>
+            <span *ngIf="anime.status">{{ anime.status }}</span>
+          </div>
+        </div>
+
+      </article>
+
     </div>
 
-    <p *ngIf="!loading && animes.length === 0 && !error">
-      No hay animes para mostrar.
-    </p>
+    <button
+      *ngIf="!loading && visibleCount < animes.length"
+      type="button"
+      class="more-btn"
+      (click)="showMore()">
+
+      Ver más del ranking
+
+    </button>
+
   </section>
+
+  <aside class="side-panel">
+
+    <section class="featured-card" *ngIf="featuredAnime">
+
+      <h2>Destacado del top</h2>
+
+      <img
+        [src]="featuredAnime.images.jpg.large_image_url"
+        [alt]="featuredAnime.title"
+      />
+
+      <h3>{{ featuredAnime.title }}</h3>
+
+      <p class="meta">
+        ⭐ {{ featuredAnime.score || 'N/A' }}
+        <span>·</span>
+        {{ featuredAnime.episodes || '?' }} episodios
+        <span>·</span>
+        {{ featuredAnime.type || 'Anime' }}
+      </p>
+
+      <p class="synopsis">
+        {{ featuredAnime.synopsis || 'Sin sinopsis disponible.' }}
+      </p>
+
+      <button
+        type="button"
+        class="detail-btn"
+        [routerLink]="['/anime', featuredAnime.mal_id]">
+
+        Ver detalles
+
+      </button>
+
+    </section>
+
+    <section class="trending-card" *ngIf="trendingAnimes.length > 0">
+
+      <h2>Tendencias del ranking</h2>
+
+      <article
+        class="trend-item"
+        *ngFor="let anime of trendingAnimes"
+        [routerLink]="['/anime', anime.mal_id]">
+
+        <img
+          [src]="anime.images.jpg.image_url"
+          [alt]="anime.title"
+        />
+
+        <div>
+          <h3>{{ anime.title }}</h3>
+
+          <p>
+            ⭐ {{ anime.score || 'N/A' }}
+          </p>
+
+          <span>
+            Rank #{{ anime.rank || 'N/A' }}
+          </span>
+        </div>
+
+      </article>
+
+    </section>
+
+  </aside>
+
 </main>
