@@ -38,10 +38,8 @@ export class AnimeService {
     );
   }
 
-  getTopAnime(): Observable<AnimeResponse> {
-    return this.http.get<AnimeResponse>(
-      `${this.apiUrl}/top/anime?limit=12`
-    );
+  getTopAnime(limit: number = 10) {
+    return this.http.get(`${this.apiUrl}/top/anime?limit=${limit}`);
   }
 
   getAnimeById(id: number): Observable<any> {

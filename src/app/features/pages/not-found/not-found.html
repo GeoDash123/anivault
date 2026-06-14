@@ -1,0 +1,22 @@
+<main class="not-found-page">
+  <section class="not-found-card">
+
+    <img
+      *ngIf="errorImage"
+      class="error-cat"
+      [src]="errorImage"
+      alt="Error 404 - Página no encontrada"
+    >
+
+    <h1>Página no encontrada</h1>
+
+    <p>
+      La ruta que intentaste abrir no existe dentro de AniVault.
+    </p>
+
+    <button routerLink="/" class="home-btn">
+      Volver al inicio
+    </button>
+
+  </section>
+</main>

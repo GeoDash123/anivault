@@ -1,0 +1,108 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: Inter, Arial, sans-serif;
+}
+
+.hero {
+  min-height: 230px;
+  text-align: center;
+  padding: 50px 20px;
+  background: var(--hero-bg);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin: 0 0 10px;
+  font-weight: 800;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 18px;
+}
+
+.favorites-page,
+.top-page {
+  padding: 24px 40px;
+}
+
+.results {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 22px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--text-main);
+}
+
+.section-header p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.empty-state {
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 48px 20px;
+  text-align: center;
+  background: var(--bg-soft);
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+  color: var(--text-main);
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1200px) {
+  .anime-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .anime-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .favorites-page,
+  .top-page {
+    padding: 16px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .anime-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
