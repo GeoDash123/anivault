@@ -27,4 +27,9 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/pages/anime-detail/anime-detail').then(m => m.AnimeDetail)
     },
+    {
+        path: '**',
+        loadComponent: () =>
+            import('./features/pages/not-found/not-found').then(m => m.NotFound)
+    }
 ];
