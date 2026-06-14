@@ -1,0 +1,97 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #111827;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.hero {
+  min-height: 230px;
+  text-align: center;
+  padding: 50px 20px;
+  background:
+    linear-gradient(rgba(248, 250, 252, .84), rgba(248, 250, 252, .92)),
+    linear-gradient(120deg, #e5e7eb, #ffffff, #dbeafe);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin: 0 0 10px;
+  font-weight: 800;
+}
+
+.hero p {
+  margin: 0;
+  color: #64748b;
+  font-size: 18px;
+}
+
+.top-page {
+  padding: 24px 40px;
+}
+
+.results {
+  background: white;
+  border: 1px solid #dbe3ef;
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 22px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.section-header p {
+  margin: 4px 0 0;
+  color: #64748b;
+}
+
+.section-header select {
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: white;
+  color: #475569;
+}
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1200px) {
+  .anime-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .anime-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .top-page {
+    padding: 16px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .anime-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

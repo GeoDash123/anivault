@@ -1,5 +1,10 @@
 <article class="anime-card" *ngIf="anime">
-  <button class="heart">♡</button>
+  <button
+    class="heart"
+    [class.active]="isFavorite()"
+    (click)="toggleFavorite()">
+    {{ isFavorite() ? '♥' : '♡' }}
+  </button>
 
   <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
 

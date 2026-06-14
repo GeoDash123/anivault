@@ -1,1 +1,27 @@
-<p>favorites works!</p>
+<section class="hero">
+  <h1>Tus favoritos</h1>
+  <p>Consulta los animes que guardaste para ver después.</p>
+</section>
+
+<main class="favorites-page">
+  <section class="results">
+    <div class="section-header">
+      <div>
+        <h2>Mis favoritos</h2>
+        <p>{{ favorites.length }} animes guardados</p>
+      </div>
+    </div>
+
+    <div class="anime-grid" *ngIf="favorites.length > 0">
+      <app-anime-card
+        *ngFor="let anime of favorites"
+        [anime]="anime">
+      </app-anime-card>
+    </div>
+
+    <div class="empty-state" *ngIf="favorites.length === 0">
+      <h3>No tienes favoritos todavía</h3>
+      <p>Explora animes y presiona el corazón para guardarlos aquí.</p>
+    </div>
+  </section>
+</main>

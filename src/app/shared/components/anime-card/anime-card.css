@@ -70,3 +70,7 @@
   font-size: 12px;
   font-weight: 600;
 }
+
+.heart.active {
+  color: #ef4444;
+}
