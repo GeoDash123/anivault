@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AnimeService } from '../../../core/services/anime.service';
+import { AnimeCard } from '../../../shared/components/anime-card/anime-card'
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-explore',
-  imports: [CommonModule],
+  imports: [CommonModule, AnimeCard, FormsModule],
   templateUrl: './explore.html',
   styleUrl: './explore.css',
 })
@@ -41,6 +43,29 @@ export class Explore implements OnInit {
         this.loading = false;
 
         this.cdr.detectChanges();
+      }
+    });
+  }
+
+  searchText = '';
+
+  searchAnime(): void {
+    if (!this.searchText.trim()) {
+      this.loadTopAnime();
+      return;
+    }
+
+    this.loading = true;
+    this.error = '';
+
+    this.animeService.searchAnime(this.searchText).subscribe({
+      next: (response: any) => {
+        this.animes = response.data;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'No se pudo realizar la búsqueda.';
+        this.loading = false;
       }
     });
   }

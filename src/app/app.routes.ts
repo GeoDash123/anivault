@@ -12,4 +12,9 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/pages/explore/explore').then(m => m.Explore)
     },
+    {
+        path: 'top',
+        loadComponent: () =>
+            import('./features/pages/top/top').then(m => m.Top)
+    },
 ];

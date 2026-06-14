@@ -3,8 +3,15 @@
   <p>Encuentra series por género, puntuación y temporada.</p>
 
   <div class="search-box">
-    <input type="text" placeholder="Buscar por título, género o estudio..." />
-    <button>Buscar</button>
+
+    <input
+      type="text"
+      placeholder="Buscar por título, género o estudio..."
+      [(ngModel)]="searchText"
+      (keyup.enter)="searchAnime()"
+    />
+
+    <button (click)="searchAnime()">Buscar</button>
   </div>
 </section>
 
@@ -60,23 +67,10 @@
     <p *ngIf="error">{{ error }}</p>
 
     <div class="anime-grid" *ngIf="!loading && animes.length > 0">
-      <article class="anime-card" *ngFor="let anime of animes">
-        <button class="heart">♡</button>
-
-        <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
-
-        <div class="card-body">
-          <h3>{{ anime.title }}</h3>
-
-          <p>
-            ⭐ {{ anime.score || 'N/A' }}
-            <span>·</span>
-            {{ anime.episodes || '?' }} ep.
-          </p>
-
-          <span class="tag">{{ anime.type || 'TV' }}</span>
-        </div>
-      </article>
+      <app-anime-card
+        *ngFor="let anime of animes"
+        [anime]="anime">
+      </app-anime-card>
     </div>
 
     <p *ngIf="!loading && animes.length === 0 && !error">
