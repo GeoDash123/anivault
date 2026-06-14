@@ -1,0 +1,109 @@
+<section class="hero">
+  <h1>Explora animes</h1>
+  <p>Encuentra series por género, puntuación y temporada.</p>
+
+  <div class="search-box">
+    <input type="text" placeholder="Buscar por título, género o estudio..." />
+    <button>Buscar</button>
+  </div>
+</section>
+
+<main class="layout">
+  <aside class="filters">
+    <h2>Filtros</h2>
+
+    <label>Género</label>
+    <select>
+      <option>Todos los géneros</option>
+    </select>
+
+    <div class="chips">
+      <span>Acción</span>
+      <span>Aventura</span>
+      <span>Comedia</span>
+      <span>Drama</span>
+      <span>Fantasía</span>
+    </div>
+
+    <label>Temporada</label>
+    <select>
+      <option>Todas las temporadas</option>
+    </select>
+
+    <label>Año</label>
+    <select>
+      <option>Todos los años</option>
+    </select>
+
+    <label>Formato</label>
+    <select>
+      <option>Todos los formatos</option>
+    </select>
+
+    <button class="clear-btn">Limpiar filtros</button>
+  </aside>
+
+  <section class="results">
+    <div class="section-header">
+      <div>
+        <h2>Resultados</h2>
+        <p>{{ animes.length }} animes encontrados</p>
+      </div>
+
+      <select>
+        <option>Popularidad</option>
+        <option>Puntuación</option>
+      </select>
+    </div>
+
+    <p *ngIf="loading">Cargando animes...</p>
+    <p *ngIf="error">{{ error }}</p>
+
+    <div class="anime-grid" *ngIf="!loading && animes.length > 0">
+      <article class="anime-card" *ngFor="let anime of animes">
+        <button class="heart">♡</button>
+
+        <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
+
+        <div class="card-body">
+          <h3>{{ anime.title }}</h3>
+
+          <p>
+            ⭐ {{ anime.score || 'N/A' }}
+            <span>·</span>
+            {{ anime.episodes || '?' }} ep.
+          </p>
+
+          <span class="tag">{{ anime.type || 'TV' }}</span>
+        </div>
+      </article>
+    </div>
+
+    <p *ngIf="!loading && animes.length === 0 && !error">
+      No hay animes para mostrar.
+    </p>
+
+
+  </section>
+
+  <aside class="trending">
+    <h2>Tendencias</h2>
+
+    <article class="trend-card" *ngFor="let anime of animes.slice(0, 3)">
+      <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
+
+      <div>
+        <h3>{{ anime.title }}</h3>
+        <p>⭐ {{ anime.score || 'N/A' }} · {{ anime.episodes || '?' }} ep.</p>
+        <span>{{ anime.type || 'TV' }}</span>
+      </div>
+    </article>
+
+    <button class="primary-btn">Ver más tendencias</button>
+  </aside>
+</main>
+
+<footer class="footer">
+  <strong>AniVault</strong>
+  <span>Descubre tu próximo anime, siempre contigo.</span>
+</footer>
