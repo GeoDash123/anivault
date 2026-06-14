@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import 'tslib';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,8 +11,7 @@ import 'tslib';
   templateUrl: './login-page.html',
   styleUrls: ['./login-page.css']
 })
-export class LoginPageComponent {
-
+export class Login {
   email = '';
   password = '';
 
@@ -20,30 +20,33 @@ export class LoginPageComponent {
   errorMessage = '';
   successMessage = '';
 
-  private readonly demoUser = {
-    email: 'admin@anivault.com',
-    password: 'admin123'
-  };
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   login(): void {
-
     this.errorMessage = '';
     this.successMessage = '';
 
-    if (
-      this.email === this.demoUser.email &&
-      this.password === this.demoUser.password
-    ) {
+    if (!this.email.trim() || !this.password.trim()) {
+      this.errorMessage = 'Ingresa tu correo y contraseña.';
+      return;
+    }
 
+    const isValid = this.authService.login(this.email, this.password);
+
+    if (isValid) {
       this.successMessage = 'Inicio de sesión exitoso';
 
-      console.log('Usuario autenticado');
+      setTimeout(() => {
+        this.router.navigate(['/explorar']);
+      }, 700);
 
-    } else {
-
-      this.errorMessage =
-        'Correo o contraseña incorrectos';
+      return;
     }
+
+    this.errorMessage = 'Correo o contraseña incorrectos.';
   }
 
   togglePassword(): void {

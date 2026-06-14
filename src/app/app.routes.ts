@@ -6,6 +6,11 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/pages/home/home').then(m => m.Home)
     },
+    {
+        path: 'login',
+        loadComponent: () =>
+            import('./features/pages/login-page/login-page').then(m => m.Login)
+    },
 
     {
         path: 'explorar',
