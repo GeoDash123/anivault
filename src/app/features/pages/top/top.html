@@ -17,8 +17,15 @@
       </select>
     </div>
 
-    <p *ngIf="loading">Cargando animes...</p>
-    <p *ngIf="error">{{ error }}</p>
+    <app-loading
+      *ngIf="loading"
+      message="Buscando animes...">
+    </app-loading>
+
+    <app-error-message
+      *ngIf="error"
+      [message]="error">
+    </app-error-message>
 
     <div class="anime-grid" *ngIf="!loading && animes.length > 0">
       <app-anime-card

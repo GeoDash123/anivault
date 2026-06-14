@@ -2,10 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AnimeService } from '../../../core/services/anime.service';
 import { AnimeCard } from '../../../shared/components/anime-card/anime-card';
+import { Loading } from '../../../shared/components/loading/loading';
+import { ErrorMessage } from '../../../shared/components/error-message/error-message';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-top',
-  imports: [CommonModule, AnimeCard],
+  imports: [CommonModule, AnimeCard, FormsModule, Loading, ErrorMessage],
   templateUrl: './top.html',
   styleUrl: './top.css',
 })

@@ -3,10 +3,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AnimeService } from '../../../core/services/anime.service';
 import { AnimeCard } from '../../../shared/components/anime-card/anime-card'
 import { FormsModule } from '@angular/forms';
+import { Loading } from '../../../shared/components/loading/loading';
+import { ErrorMessage } from '../../../shared/components/error-message/error-message';
 
 @Component({
   selector: 'app-explore',
-  imports: [CommonModule, AnimeCard, FormsModule],
+  imports: [CommonModule, AnimeCard, FormsModule, Loading, ErrorMessage],
   templateUrl: './explore.html',
   styleUrl: './explore.css',
 })
