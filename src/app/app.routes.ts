@@ -12,12 +12,6 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/pages/login-page/login-page').then(m => m.Login)
     },
-
-    {
-        path: 'explorar',
-        loadComponent: () =>
-            import('./features/pages/explore/explore').then(m => m.Explore)
-    },
     {
         path: 'top',
         loadComponent: () =>
