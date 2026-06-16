@@ -21,9 +21,20 @@
         Favoritos
       </a>
 
-      <a routerLink="/login" routerLinkActive="active">
-        Login
+      <a
+        *ngIf="!authService.loggedIn()"
+        routerLink="/login"
+        routerLinkActive="active">
+        Iniciar sesión
       </a>
+
+      <button
+        *ngIf="authService.loggedIn()"
+        type="button"
+        class="logout-btn"
+        (click)="logout()">
+        Cerrar sesión
+      </button>
     </nav>
 
     <button
