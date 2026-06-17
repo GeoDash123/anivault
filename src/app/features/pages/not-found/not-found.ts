@@ -15,7 +15,11 @@ export class NotFound {
     'https://http.cat/404',
     'https://httpmemes.com/404.jpg',
     'https://http.dog/404.jpg',
-    'https://httpcats.com/404.jpg'
+    'https://httpcats.com/404.jpg',
+    'https://httpducks.com/404.jpg',
+    'https://httpgoats.com/404.jpg',
+    'https://http.pizza/404.jpg',
+    'https://http.fish/404.jpg',
   ];
 
   constructor(private cdr: ChangeDetectorRef) {
