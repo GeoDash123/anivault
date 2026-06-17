@@ -197,3 +197,12 @@
     flex-direction: column;
   }
 }
+
+.heart.locked {
+  opacity: 0.75;
+}
+
+.heart.locked:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+}

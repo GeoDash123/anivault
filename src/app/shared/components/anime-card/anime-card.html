@@ -2,6 +2,7 @@
   <button
     class="heart"
     [class.active]="isFavorite()"
+    [class.locked]="!authService.loggedIn()"
     (click)="toggleFavorite($event)">
     {{ isFavorite() ? '♥' : '♡' }}
   </button>

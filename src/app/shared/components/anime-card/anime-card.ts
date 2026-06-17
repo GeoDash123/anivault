@@ -41,6 +41,10 @@ export class AnimeCard {
   isFavorite(): boolean {
     if (!this.anime) return false;
 
+    if (!this.authService.loggedIn()) {
+      return false;
+    }
+
     return this.favoritesService.isFavorite(this.anime.mal_id);
   }
 
