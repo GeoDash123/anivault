@@ -13,11 +13,6 @@ export const routes: Routes = [
             import('./features/pages/login-page/login-page').then(m => m.Login)
     },
     {
-        path: 'top',
-        loadComponent: () =>
-            import('./features/pages/top/top').then(m => m.Top)
-    },
-    {
         path: 'favoritos',
         loadComponent: () =>
             import('./features/pages/favorites/favorites').then(m => m.Favorites),
