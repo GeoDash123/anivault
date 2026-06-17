@@ -380,8 +380,8 @@ Funcionalidades completadas:
 Proyecto desarrollado por:
 
 ```txt
-Arroyo Sepulveda Jesus Antonio
 Alatorre López José Carlos
+Arroyo Sepulveda Jesus Antonio
 ```
 
 ## Créditos
