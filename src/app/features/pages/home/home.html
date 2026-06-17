@@ -104,7 +104,7 @@
   <aside class="trending">
     <h2>Tendencias</h2>
 
-    <article class="trend-card" *ngFor="let anime of animes.slice(0, 3)">
+    <article class="trend-card" *ngFor="let anime of trendingAnimes">
       <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
 
       <div>
@@ -114,7 +114,6 @@
       </div>
     </article>
 
-    <button class="primary-btn">Ver más tendencias</button>
   </aside>
 </main>
 

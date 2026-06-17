@@ -15,6 +15,7 @@ import { ErrorMessage } from '../../../shared/components/error-message/error-mes
 export class Home implements OnInit {
   allAnimes: any[] = [];
   animes: any[] = [];
+  trendingAnimes: any[] = [];
 
   searchText = '';
 
@@ -33,6 +34,7 @@ export class Home implements OnInit {
 
   ngOnInit(): void {
     this.loadTopAnime();
+    this.loadTrendingAnime();
   }
 
   loadTopAnime(): void {
@@ -51,6 +53,20 @@ export class Home implements OnInit {
         console.error(error);
         this.error = 'No se pudo cargar la información de anime.';
         this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  loadTrendingAnime(): void {
+    this.animeService.getTrendingAnime().subscribe({
+      next: (response: any) => {
+        this.trendingAnimes = response.data || [];
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error al cargar tendencias:', error);
+        this.trendingAnimes = [];
         this.cdr.detectChanges();
       }
     });

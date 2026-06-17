@@ -53,4 +53,7 @@ export class AnimeService {
       `${this.apiUrl}/seasons/now?limit=12&sfw=true`
     );
   }
+  getTrendingAnime() {
+    return this.http.get(`${this.apiUrl}/top/anime?limit=3`);
+  }
 }
