@@ -13,17 +13,27 @@
         Inicio
       </a>
 
-      <a routerLink="/top" routerLinkActive="active">
-        Top
-      </a>
-
-      <a routerLink="/favoritos" routerLinkActive="active">
+      <a
+        *ngIf="authService.loggedIn()"
+        routerLink="/favoritos"
+        routerLinkActive="active">
         Favoritos
       </a>
 
-      <a routerLink="/login" routerLinkActive="active">
-        Login
+      <a
+        *ngIf="!authService.loggedIn()"
+        routerLink="/login"
+        routerLinkActive="active">
+        Iniciar sesión
       </a>
+
+      <button
+        *ngIf="authService.loggedIn()"
+        type="button"
+        class="logout-btn"
+        (click)="openLogoutModal()">
+        Cerrar sesión
+      </button>
     </nav>
 
     <button
@@ -40,3 +50,42 @@
     </button>
   </div>
 </header>
+
+<div
+  class="modal-backdrop"
+  *ngIf="showLogoutModal"
+  (click)="cancelLogout()">
+
+  <section
+    class="logout-modal"
+    (click)="$event.stopPropagation()">
+
+    <div class="modal-icon">
+      ⎋
+    </div>
+
+    <h2>¿Cerrar sesión?</h2>
+
+    <p>
+      Tu sesión actual se cerrará. Podrás volver a iniciar sesión cuando quieras.
+    </p>
+
+    <div class="modal-actions">
+      <button
+        type="button"
+        class="cancel-btn"
+        (click)="cancelLogout()">
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        class="confirm-btn"
+        (click)="confirmLogout()">
+        Cerrar sesión
+      </button>
+    </div>
+
+  </section>
+
+</div>

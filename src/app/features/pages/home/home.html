@@ -11,7 +11,7 @@
       (keyup.enter)="searchAnime()"
     />
 
-    <button (click)="searchAnime()">Buscar</button>
+    <button type="button" (click)="searchAnime()">Buscar</button>
   </div>
 </section>
 
@@ -19,35 +19,53 @@
   <aside class="filters">
     <h2>Filtros</h2>
 
-    <label>Género</label>
-    <select>
-      <option>Todos los géneros</option>
-    </select>
-
-    <div class="chips">
-      <span>Acción</span>
-      <span>Aventura</span>
-      <span>Comedia</span>
-      <span>Drama</span>
-      <span>Fantasía</span>
-    </div>
-
-    <label>Temporada</label>
-    <select>
-      <option>Todas las temporadas</option>
-    </select>
-
-    <label>Año</label>
-    <select>
-      <option>Todos los años</option>
-    </select>
-
     <label>Formato</label>
-    <select>
-      <option>Todos los formatos</option>
+    <select [(ngModel)]="selectedType" (change)="applyFilters()">
+      <option value="">Todos los formatos</option>
+      <option value="tv">TV</option>
+      <option value="movie">Película</option>
+      <option value="ova">OVA</option>
+      <option value="ona">ONA</option>
+      <option value="special">Especial</option>
     </select>
 
-    <button class="clear-btn">Limpiar filtros</button>
+    <label>Estado</label>
+    <select [(ngModel)]="selectedStatus" (change)="applyFilters()">
+      <option value="">Todos los estados</option>
+      <option value="airing">En emisión</option>
+      <option value="finished">Finalizado</option>
+      <option value="not yet aired">Próximamente</option>
+    </select>
+
+    <label>Género</label>
+    <select [(ngModel)]="selectedGenre" (change)="applyFilters()">
+      <option value="">Todos los géneros</option>
+      <option value="action">Acción</option>
+      <option value="adventure">Aventura</option>
+      <option value="comedy">Comedia</option>
+      <option value="drama">Drama</option>
+      <option value="fantasy">Fantasía</option>
+      <option value="romance">Romance</option>
+      <option value="sci-fi">Ciencia ficción</option>
+      <option value="slice of life">Slice of Life</option>
+      <option value="sports">Deportes</option>
+      <option value="supernatural">Sobrenatural</option>
+    </select>
+
+    <label>Ordenar por</label>
+    <select [(ngModel)]="selectedOrder" (change)="applyFilters()">
+      <option value="popularidad">Popularidad</option>
+      <option value="puntuacion">Puntuación</option>
+      <option value="titulo">Título</option>
+      <option value="episodios">Episodios</option>
+    </select>
+
+    <button
+      type="button"
+      class="clear-btn"
+      (click)="clearFilters()">
+      Limpiar filtros
+    </button>
   </aside>
 
   <section class="results">
@@ -57,10 +75,6 @@
         <p>{{ animes.length }} animes encontrados</p>
       </div>
 
-      <select>
-        <option>Popularidad</option>
-        <option>Puntuación</option>
-      </select>
     </div>
 
     <app-loading
@@ -90,7 +104,7 @@
   <aside class="trending">
     <h2>Tendencias</h2>
 
-    <article class="trend-card" *ngFor="let anime of animes.slice(0, 3)">
+    <article class="trend-card" *ngFor="let anime of trendingAnimes">
       <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
 
       <div>
@@ -100,7 +114,6 @@
       </div>
     </article>
 
-    <button class="primary-btn">Ver más tendencias</button>
   </aside>
 </main>
 

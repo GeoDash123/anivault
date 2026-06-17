@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +7,33 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 export class AuthService {
   private storageKey = 'aniVaultAuth';
 
+  loggedIn = signal(false);
+
   private readonly demoUser = {
     email: 'admin@anivault.com',
     password: 'admin123'
   };
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
+    this.loadSession();
+  }
 
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
+  }
+
+  private loadSession(): void {
+    if (!this.isBrowser()) return;
+
+    const session = localStorage.getItem(this.storageKey);
+
+    if (!session) {
+      this.loggedIn.set(false);
+      return;
+    }
+
+    const parsedSession = JSON.parse(session);
+    this.loggedIn.set(parsedSession.loggedIn === true);
   }
 
   login(email: string, password: string): boolean {
@@ -33,24 +51,22 @@ export class AuthService {
           loggedIn: true
         })
       );
+
+      this.loggedIn.set(true);
     }
 
     return isValid;
   }
 
   logout(): void {
-    if (!this.isBrowser()) return;
+    if (this.isBrowser()) {
+      localStorage.removeItem(this.storageKey);
+    }
 
-    localStorage.removeItem(this.storageKey);
+    this.loggedIn.set(false);
   }
 
   isLoggedIn(): boolean {
-    if (!this.isBrowser()) return false;
-
-    const session = localStorage.getItem(this.storageKey);
-
-    if (!session) return false;
-
-    return JSON.parse(session).loggedIn === true;
+    return this.loggedIn();
   }
 }

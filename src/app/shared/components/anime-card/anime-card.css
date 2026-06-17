@@ -80,3 +80,129 @@
   font-size: 12px;
   font-weight: 700;
 }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.login-required-modal {
+  width: 100%;
+  max-width: 430px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 24px 60px var(--shadow-soft);
+  animation: scaleIn 0.22s ease;
+}
+
+.modal-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.login-required-modal h2 {
+  margin: 0 0 10px;
+  color: var(--text-main);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.login-required-modal p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.cancel-btn,
+.confirm-btn {
+  flex: 1;
+  height: 44px;
+  border-radius: 9px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancel-btn {
+  background: var(--bg-soft);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.cancel-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.confirm-btn {
+  background: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+}
+
+.confirm-btn:hover {
+  filter: brightness(0.95);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 520px) {
+  .modal-actions {
+    flex-direction: column;
+  }
+}
+
+.heart.locked {
+  opacity: 0.75;
+}
+
+.heart.locked:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+}

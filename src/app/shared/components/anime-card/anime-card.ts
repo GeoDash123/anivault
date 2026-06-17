@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FavoritesService } from '../../../core/services/favorites.service';
-import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-anime-card',
@@ -12,10 +13,23 @@ import { RouterLink } from '@angular/router';
 export class AnimeCard {
   @Input() anime: any;
 
-  constructor(private favoritesService: FavoritesService) {}
+  showLoginModal = false;
 
-  toggleFavorite(): void {
+  constructor(
+    private favoritesService: FavoritesService,
+    public authService: AuthService,
+    private router: Router
+  ) {}
+
+  toggleFavorite(event: Event): void {
+    event.stopPropagation();
+
     if (!this.anime) return;
+
+    if (!this.authService.loggedIn()) {
+      this.showLoginModal = true;
+      return;
+    }
 
     if (this.isFavorite()) {
       this.favoritesService.removeFavorite(this.anime.mal_id);
@@ -27,6 +41,19 @@ export class AnimeCard {
   isFavorite(): boolean {
     if (!this.anime) return false;
 
+    if (!this.authService.loggedIn()) {
+      return false;
+    }
+
     return this.favoritesService.isFavorite(this.anime.mal_id);
+  }
+
+  closeLoginModal(): void {
+    this.showLoginModal = false;
+  }
+
+  goToLogin(): void {
+    this.showLoginModal = false;
+    this.router.navigate(['/login']);
   }
 }

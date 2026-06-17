@@ -1,6 +1,5 @@
 <div class="min-h-screen bg-gray-100">
 
-  <!-- HERO -->
   <section class="h-80 bg-linear-to-r from-slate-100 to-gray-200 flex flex-col justify-center items-center text-center">
 
     <h1 class="text-5xl font-bold text-slate-900">
@@ -13,12 +12,10 @@
 
   </section>
 
-  <!-- CONTENT -->
   <section class="max-w-6xl mx-auto -mt-16 px-4 pb-10">
 
     <div class="grid md:grid-cols-3 gap-6">
 
-      <!-- LOGIN CARD -->
       <div class="md:col-span-2 bg-white rounded-2xl shadow-lg p-8">
 
         <div class="text-center mb-8">
@@ -37,7 +34,6 @@
 
         </div>
 
-        <!-- EMAIL -->
         <div class="mb-4">
 
           <label class="block mb-2 font-medium">
@@ -52,7 +48,6 @@
 
         </div>
 
-        <!-- PASSWORD -->
         <div class="mb-4">
 
           <label class="block mb-2 font-medium">
@@ -70,18 +65,49 @@
 
             <button
               type="button"
+              class="password-toggle"
               (click)="togglePassword()"
-              class="absolute right-3 top-3 text-gray-500">
+              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
 
-              {{ showPassword ? '🙈' : '👁️' }}
+              <!-- Ojo visible -->
+              <svg
+                *ngIf="!showPassword"
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
 
+              <!-- Ojo con línea -->
+              <svg
+                *ngIf="showPassword"
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M3 3l18 18" />
+                <path d="M10.58 10.58A2 2 0 0 0 12 14a2 2 0 0 0 1.42-.58" />
+                <path d="M9.88 4.24A10.7 10.7 0 0 1 12 4c6.5 0 10 8 10 8a18.5 18.5 0 0 1-2.5 3.52" />
+                <path d="M6.6 6.6C3.8 8.48 2 12 2 12s3.5 8 10 8a10.8 10.8 0 0 0 4.4-.94" />
+              </svg>
             </button>
 
           </div>
 
         </div>
 
-        <!-- MENSAJES -->
         <div
           *ngIf="errorMessage"
           class="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
@@ -98,7 +124,6 @@
 
         </div>
 
-        <!-- LOGIN -->
         <button
           type="button"
           (click)="login()"
@@ -108,7 +133,6 @@
 
         </button>
 
-        <!-- DEMO USER -->
         <div class="mt-6 bg-blue-50 text-blue-700 p-4 rounded-lg text-sm">
 
           <p class="font-semibold mb-1">
@@ -127,7 +151,6 @@
 
       </div>
 
-      <!-- BENEFICIOS -->
       <div class="bg-white rounded-2xl shadow-lg p-8">
 
         <h3 class="text-xl font-semibold mb-6">

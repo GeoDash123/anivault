@@ -2,7 +2,8 @@
   <button
     class="heart"
     [class.active]="isFavorite()"
-    (click)="toggleFavorite()">
+    [class.locked]="!authService.loggedIn()"
+    (click)="toggleFavorite($event)">
     {{ isFavorite() ? '♥' : '♡' }}
   </button>
 
@@ -24,3 +25,43 @@
     <span class="tag">{{ anime.type || 'TV' }}</span>
   </div>
 </article>
+
+
+<div
+  class="modal-backdrop"
+  *ngIf="showLoginModal"
+  (click)="closeLoginModal()">
+
+  <section
+    class="login-required-modal"
+    (click)="$event.stopPropagation()">
+
+    <div class="modal-icon">
+      ♡
+    </div>
+
+    <h2>Inicia sesión para guardar favoritos</h2>
+
+    <p>
+      Para agregar animes a tu lista de favoritos necesitas iniciar sesión con una cuenta.
+    </p>
+
+    <div class="modal-actions">
+      <button
+        type="button"
+        class="cancel-btn"
+        (click)="closeLoginModal()">
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        class="confirm-btn"
+        (click)="goToLogin()">
+        Iniciar sesión
+      </button>
+    </div>
+
+  </section>
+
+</div>
