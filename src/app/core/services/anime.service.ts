@@ -34,7 +34,7 @@ export class AnimeService {
 
   searchAnime(query: string): Observable<AnimeResponse> {
     return this.http.get<AnimeResponse>(
-      `${this.apiUrl}/anime?q=${query}&limit=12&sfw=true`
+      `${this.apiUrl}/anime?q=${encodeURIComponent(query)}&limit=12&sfw=true`
     );
   }
 
