@@ -1,5 +1,6 @@
 <article class="anime-card" *ngIf="anime">
   <button
+    *ngIf="showFavoriteButton"
     class="heart"
     [class.active]="isFavorite()"
     [class.locked]="!authService.loggedIn()"

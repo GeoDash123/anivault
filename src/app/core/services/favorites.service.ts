@@ -22,18 +22,19 @@ export class FavoritesService {
   }
 
   addFavorite(anime: any): void {
-    if (!this.isBrowser()) {
-      return;
-    }
+    if (!this.isBrowser()) return;
 
     const favorites = this.getFavorites();
-
-    const exists = favorites.some(
-      item => item.mal_id === anime.mal_id
-    );
+    const exists = favorites.some(item => item.mal_id === anime.mal_id);
 
     if (!exists) {
-      favorites.push(anime);
+      const favoriteAnime = {
+        ...anime,
+        userStatus: 'Pendiente',
+        userNote: ''
+      };
+
+      favorites.push(favoriteAnime);
       localStorage.setItem(this.storageKey, JSON.stringify(favorites));
     }
   }
@@ -48,6 +49,25 @@ export class FavoritesService {
     const updatedFavorites = favorites.filter(
       item => item.mal_id !== animeId
     );
+
+    localStorage.setItem(this.storageKey, JSON.stringify(updatedFavorites));
+  }
+
+  updateFavorite(animeId: number, changes: any): void {
+    if (!this.isBrowser()) return;
+
+    const favorites = this.getFavorites();
+
+    const updatedFavorites = favorites.map(anime => {
+      if (anime.mal_id === animeId) {
+        return {
+          ...anime,
+          ...changes
+        };
+      }
+
+      return anime;
+    });
 
     localStorage.setItem(this.storageKey, JSON.stringify(updatedFavorites));
   }

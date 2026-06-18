@@ -1,6 +1,6 @@
 <section class="hero">
   <h1>Tus favoritos</h1>
-  <p>Consulta los animes que guardaste para ver después.</p>
+  <p>Consulta, edita y organiza los animes que guardaste para ver después.</p>
 </section>
 
 <main class="favorites-page">
@@ -12,11 +12,53 @@
       </div>
     </div>
 
-    <div class="anime-grid" *ngIf="favorites.length > 0">
-      <app-anime-card
-        *ngFor="let anime of favorites"
-        [anime]="anime">
-      </app-anime-card>
+    <div class="success-message" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <div class="favorites-grid" *ngIf="favorites.length > 0">
+      <article class="favorite-item" *ngFor="let anime of favorites">
+        
+        <app-anime-card
+        [anime]="anime"
+        [showFavoriteButton]="false">
+        </app-anime-card>
+
+        <div class="favorite-edit-panel">
+          <label>Estado personal</label>
+
+          <select [(ngModel)]="anime.userStatus">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Viendo">Viendo</option>
+            <option value="Terminado">Terminado</option>
+          </select>
+
+          <label>Nota personal</label>
+
+          <textarea
+            class="note-textarea"
+            [(ngModel)]="anime.userNote"
+            rows="3"
+            placeholder="Escribe una nota sobre este anime...">
+          </textarea>
+
+          <div class="favorite-actions">
+            <button
+              type="button"
+              class="save-btn"
+              (click)="updateFavorite(anime)">
+              Guardar cambios
+            </button>
+
+            <button
+              type="button"
+              class="delete-btn"
+              (click)="openDeleteModal(anime)">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </article>
     </div>
 
     <div class="empty-state" *ngIf="favorites.length === 0">
@@ -25,3 +67,44 @@
     </div>
   </section>
 </main>
+
+<div
+  class="modal-backdrop"
+  *ngIf="showDeleteModal"
+  (click)="cancelDelete()">
+
+  <section
+    class="delete-modal"
+    (click)="$event.stopPropagation()">
+
+    <div class="modal-icon">
+      !
+    </div>
+
+    <h2>¿Eliminar de favoritos?</h2>
+
+    <p>
+      Estás por eliminar
+      <strong>{{ animeToDelete?.title }}</strong>
+      de tu lista de favoritos.
+    </p>
+
+    <div class="modal-actions">
+      <button
+        type="button"
+        class="cancel-btn"
+        (click)="cancelDelete()">
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        class="confirm-delete-btn"
+        (click)="confirmDelete()">
+        Eliminar
+      </button>
+    </div>
+
+  </section>
+
+</div>
