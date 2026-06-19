@@ -1,68 +1,234 @@
-<article class="anime-card" *ngIf="anime">
+<article
+  *ngIf="anime"
+  class="group relative overflow-hidden rounded-2xl border
+         border-[var(--border-color)]
+         bg-[var(--bg-surface)]
+         shadow-[0_12px_30px_var(--shadow-soft)]
+         transition duration-200
+         hover:-translate-y-1
+         hover:shadow-[0_20px_45px_var(--shadow-soft)]">
+
+  <!-- Botón de favorito -->
   <button
     *ngIf="showFavoriteButton"
-    class="heart"
-    [class.active]="isFavorite()"
-    [class.locked]="!authService.loggedIn()"
-    (click)="toggleFavorite($event)">
-    {{ isFavorite() ? '♥' : '♡' }}
+    type="button"
+    (click)="toggleFavorite($event)"
+    [attr.aria-label]="
+      isFavorite()
+        ? 'Quitar de favoritos'
+        : 'Agregar a favoritos'
+    "
+    [attr.title]="
+      authService.loggedIn()
+        ? (isFavorite() ? 'Quitar de favoritos' : 'Agregar a favoritos')
+        : 'Inicia sesión para guardar favoritos'
+    "
+    class="absolute right-3 top-3 z-10
+           flex h-10 w-10 items-center justify-center
+           rounded-full border
+           border-[var(--border-color)]
+           bg-[var(--bg-surface)]
+           text-[var(--text-muted)]
+           shadow-md backdrop-blur
+           transition
+           hover:scale-105
+           hover:border-red-400
+           hover:text-red-500"
+    [class.text-red-500]="isFavorite()"
+    [class.opacity-75]="!authService.loggedIn()">
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      [attr.fill]="isFavorite() ? 'currentColor' : 'none'"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true">
+
+      <path
+        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67
+           l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78
+           L12 21.23l8.84-8.84
+           a5.5 5.5 0 0 0 0-7.78Z">
+      </path>
+    </svg>
   </button>
 
-  <img
+  <!-- Imagen -->
+  <a
     [routerLink]="['/anime', anime.mal_id]"
-    [src]="anime.images.jpg.image_url"
-    [alt]="anime.title"
-  />
+    class="block overflow-hidden">
 
-  <div class="card-body">
-    <h3>{{ anime.title }}</h3>
+    <img
+      [src]="anime.images.jpg.image_url"
+      [alt]="anime.title"
+      loading="lazy"
+      class="h-72 w-full cursor-pointer
+             object-cover transition duration-300
+             group-hover:scale-105">
+  </a>
 
-    <p>
-      ⭐ {{ anime.score || 'N/A' }}
-      <span>·</span>
-      {{ anime.episodes || '?' }} ep.
-    </p>
+  <!-- Información -->
+  <div class="p-4">
+    <a
+      [routerLink]="['/anime', anime.mal_id]"
+      class="block">
 
-    <span class="tag">{{ anime.type || 'TV' }}</span>
+      <h3
+        class="line-clamp-2 min-h-12
+               cursor-pointer text-base font-bold
+               leading-6 text-[var(--text-main)]
+               transition hover:text-[var(--primary)]">
+
+        {{ anime.title }}
+      </h3>
+    </a>
+
+    <div
+      class="mt-3 flex flex-wrap items-center gap-2
+             text-sm text-[var(--text-muted)]">
+
+      <span class="inline-flex items-center gap-1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="text-amber-400"
+          aria-hidden="true">
+
+          <path
+            d="m12 2 3.09 6.26L22 9.27l-5 4.87
+               1.18 6.88L12 17.77
+               5.82 21.02 7 14.14
+               2 9.27l6.91-1.01L12 2Z">
+          </path>
+        </svg>
+
+        {{ anime.score || 'N/A' }}
+      </span>
+
+      <span aria-hidden="true">·</span>
+
+      <span>
+        {{ anime.episodes || '?' }} ep.
+      </span>
+    </div>
+
+    <div class="mt-4">
+      <span
+        class="inline-flex rounded-lg
+               bg-[var(--primary-soft)]
+               px-3 py-1 text-xs font-bold
+               text-[var(--primary)]">
+
+        {{ anime.type || 'TV' }}
+      </span>
+    </div>
   </div>
 </article>
 
-
+<!-- Modal para iniciar sesión -->
 <div
-  class="modal-backdrop"
   *ngIf="showLoginModal"
-  (click)="closeLoginModal()">
+  (click)="closeLoginModal()"
+  class="fixed inset-0 z-[1000]
+         flex items-center justify-center
+         bg-slate-950/60 p-5
+         backdrop-blur-sm">
 
   <section
-    class="login-required-modal"
-    (click)="$event.stopPropagation()">
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="login-required-title"
+    (click)="$event.stopPropagation()"
+    class="w-full max-w-md
+           rounded-2xl border
+           border-[var(--border-color)]
+           bg-[var(--bg-surface)]
+           p-7 text-center
+           shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
 
-    <div class="modal-icon">
-      ♡
+    <div
+      class="mx-auto flex h-16 w-16
+             items-center justify-center
+             rounded-full bg-[var(--primary-soft)]
+             text-[var(--primary)]">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67
+             l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78
+             L12 21.23l8.84-8.84
+             a5.5 5.5 0 0 0 0-7.78Z">
+        </path>
+      </svg>
     </div>
 
-    <h2>Inicia sesión para guardar favoritos</h2>
+    <h2
+      id="login-required-title"
+      class="mt-5 text-2xl font-extrabold
+             text-[var(--text-main)]">
 
-    <p>
+      Inicia sesión para guardar favoritos
+    </h2>
+
+    <p
+      class="mt-3 leading-6
+             text-[var(--text-muted)]">
+
       Para agregar animes a tu lista de favoritos necesitas iniciar sesión con una cuenta.
     </p>
 
-    <div class="modal-actions">
+    <div
+      class="mt-7 flex flex-col gap-3
+             sm:flex-row">
+
       <button
         type="button"
-        class="cancel-btn"
-        (click)="closeLoginModal()">
+        (click)="closeLoginModal()"
+        class="flex-1 rounded-xl border
+               border-[var(--border-color)]
+               bg-[var(--bg-soft)]
+               px-5 py-3 font-bold
+               text-[var(--text-main)]
+               transition
+               hover:border-[var(--primary)]
+               hover:text-[var(--primary)]">
+
         Cancelar
       </button>
 
       <button
         type="button"
-        class="confirm-btn"
-        (click)="goToLogin()">
+        (click)="goToLogin()"
+        class="flex-1 rounded-xl
+               bg-[var(--primary)]
+               px-5 py-3 font-bold text-white
+               transition
+               hover:bg-[var(--primary-hover)]
+               focus:outline-none
+               focus:ring-2
+               focus:ring-[var(--primary)]">
+
         Iniciar sesión
       </button>
     </div>
-
   </section>
-
 </div>
