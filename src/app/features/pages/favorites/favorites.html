@@ -1,110 +1,352 @@
-<section class="hero">
-  <h1>Tus favoritos</h1>
-  <p>Consulta, edita y organiza los animes que guardaste para ver después.</p>
-</section>
+<main class="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
 
-<main class="favorites-page">
-  <section class="results">
-    <div class="section-header">
+  <!-- Encabezado -->
+  <section
+    class="flex min-h-56 flex-col items-center justify-center
+           border-b border-[var(--border-color)]
+           px-5 py-12 text-center"
+    style="background: var(--hero-bg);">
+
+    <h1 class="text-4xl font-extrabold tracking-tight md:text-5xl">
+      Tus favoritos
+    </h1>
+
+    <p class="mt-4 max-w-2xl text-base text-[var(--text-muted)] md:text-lg">
+      Consulta, edita y organiza los animes que guardaste para ver después.
+    </p>
+  </section>
+
+  <!-- Contenido -->
+  <section class="mx-auto w-full max-w-7xl px-4 py-8 md:px-6 lg:px-8">
+
+    <!-- Encabezado de resultados -->
+    <div
+      class="mb-6 flex flex-col gap-2
+             sm:flex-row sm:items-center sm:justify-between">
+
       <div>
-        <h2>Mis favoritos</h2>
-        <p>{{ favorites.length }} animes guardados</p>
+        <h2 class="text-2xl font-bold">
+          Mis favoritos
+        </h2>
+
+        <p class="mt-1 text-sm text-[var(--text-muted)]">
+          {{ favorites.length }}
+          {{ favorites.length === 1 ? 'anime guardado' : 'animes guardados' }}
+        </p>
       </div>
     </div>
 
-    <div class="success-message" *ngIf="successMessage">
-      {{ successMessage }}
+    <!-- Mensaje de éxito -->
+    <div
+      *ngIf="successMessage"
+      role="status"
+      class="mb-6 flex items-center gap-3
+             rounded-xl border
+             border-[var(--success-border)]
+             bg-[var(--success-bg)]
+             px-4 py-3
+             font-semibold
+             text-[var(--success-text)]">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        class="shrink-0">
+
+        <path d="M20 6 9 17l-5-5"></path>
+      </svg>
+
+      <span>{{ successMessage }}</span>
     </div>
 
-    <div class="favorites-grid" *ngIf="favorites.length > 0">
-      <article class="favorite-item" *ngFor="let anime of favorites">
-        
+    <!-- Lista de favoritos -->
+    <div
+      *ngIf="favorites.length > 0"
+      class="grid grid-cols-1 gap-6
+             sm:grid-cols-2
+             xl:grid-cols-3
+             2xl:grid-cols-4">
+
+      <article
+        *ngFor="let anime of favorites"
+        class="flex min-w-0 flex-col gap-3">
+
+        <!-- Tarjeta del anime -->
         <app-anime-card
-        [anime]="anime"
-        [showFavoriteButton]="false">
+          [anime]="anime"
+          [showFavoriteButton]="false">
         </app-anime-card>
 
-        <div class="favorite-edit-panel">
-          <label>Estado personal</label>
+        <!-- Panel editable -->
+        <section
+          class="flex flex-1 flex-col
+                 rounded-2xl border
+                 border-[var(--border-color)]
+                 bg-[var(--bg-surface)]
+                 p-4
+                 shadow-[0_10px_30px_var(--shadow-soft)]">
 
-          <select [(ngModel)]="anime.userStatus">
-            <option value="Pendiente">Pendiente</option>
-            <option value="Viendo">Viendo</option>
-            <option value="Terminado">Terminado</option>
-          </select>
+          <!-- Estado -->
+          <div>
+            <label
+              [for]="'status-' + anime.mal_id"
+              class="mb-2 block text-sm font-bold">
 
-          <label>Nota personal</label>
+              Estado personal
+            </label>
 
-          <textarea
-            class="note-textarea"
-            [(ngModel)]="anime.userNote"
-            rows="3"
-            placeholder="Escribe una nota sobre este anime...">
-          </textarea>
+            <select
+              [id]="'status-' + anime.mal_id"
+              [(ngModel)]="anime.userStatus"
+              class="w-full rounded-xl border
+                     border-[var(--border-color)]
+                     bg-[var(--bg-main)]
+                     px-3 py-2.5
+                     text-[var(--text-main)]
+                     outline-none transition
+                     focus:border-[var(--primary)]
+                     focus:ring-2
+                     focus:ring-[var(--primary)]">
 
-          <div class="favorite-actions">
+              <option value="Pendiente">Pendiente</option>
+              <option value="Viendo">Viendo</option>
+              <option value="Terminado">Terminado</option>
+            </select>
+          </div>
+
+          <!-- Nota -->
+          <div class="mt-4">
+            <label
+              [for]="'note-' + anime.mal_id"
+              class="mb-2 block text-sm font-bold">
+
+              Nota personal
+            </label>
+
+            <textarea
+              [id]="'note-' + anime.mal_id"
+              [(ngModel)]="anime.userNote"
+              maxlength="300"
+              placeholder="Escribe una nota sobre este anime..."
+              class="h-24 min-h-24 w-full resize-none
+                     overflow-y-auto rounded-xl border
+                     border-[var(--border-color)]
+                     bg-[var(--bg-main)]
+                     px-3 py-2.5
+                     text-sm leading-6
+                     text-[var(--text-main)]
+                     outline-none transition
+                     placeholder:text-[var(--text-muted)]
+                     focus:border-[var(--primary)]
+                     focus:ring-2
+                     focus:ring-[var(--primary)]">
+            </textarea>
+
+            <p class="mt-1 text-right text-xs text-[var(--text-muted)]">
+              {{ anime.userNote?.length || 0 }}/300
+            </p>
+          </div>
+
+          <!-- Acciones -->
+          <div class="mt-auto grid grid-cols-1 gap-3 pt-4 sm:grid-cols-2">
+
             <button
               type="button"
-              class="save-btn"
-              (click)="updateFavorite(anime)">
+              (click)="updateFavorite(anime)"
+              class="rounded-xl
+                     bg-[var(--primary)]
+                     px-4 py-2.5
+                     text-sm font-bold text-white
+                     transition
+                     hover:bg-[var(--primary-hover)]
+                     focus:outline-none
+                     focus:ring-2
+                     focus:ring-[var(--primary)]">
+
               Guardar cambios
             </button>
 
             <button
               type="button"
-              class="delete-btn"
-              (click)="openDeleteModal(anime)">
+              (click)="openDeleteModal(anime)"
+              class="rounded-xl border
+                     border-[var(--danger-border)]
+                     bg-[var(--danger-bg)]
+                     px-4 py-2.5
+                     text-sm font-bold
+                     text-[var(--danger-text)]
+                     transition
+                     hover:brightness-95
+                     focus:outline-none
+                     focus:ring-2
+                     focus:ring-[var(--danger-border)]">
+
               Eliminar
             </button>
           </div>
-        </div>
+        </section>
       </article>
     </div>
 
-    <div class="empty-state" *ngIf="favorites.length === 0">
-      <h3>No tienes favoritos todavía</h3>
-      <p>Explora animes y presiona el corazón para guardarlos aquí.</p>
-    </div>
+    <!-- Estado vacío -->
+    <section
+      *ngIf="favorites.length === 0"
+      class="rounded-2xl border border-dashed
+             border-[var(--border-color)]
+             bg-[var(--bg-surface)]
+             px-6 py-16 text-center">
+
+      <div
+        class="mx-auto flex h-16 w-16
+               items-center justify-center
+               rounded-full bg-[var(--primary-soft)]
+               text-[var(--primary)]">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true">
+
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67
+               l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78
+               L12 21.23l8.84-8.84
+               a5.5 5.5 0 0 0 0-7.78Z">
+          </path>
+        </svg>
+      </div>
+
+      <h2 class="mt-5 text-2xl font-bold">
+        No tienes favoritos todavía
+      </h2>
+
+      <p class="mx-auto mt-2 max-w-lg text-[var(--text-muted)]">
+        Explora animes y presiona el corazón para guardarlos aquí.
+      </p>
+    </section>
   </section>
 </main>
 
+<!-- Modal de confirmación -->
 <div
-  class="modal-backdrop"
   *ngIf="showDeleteModal"
-  (click)="cancelDelete()">
+  (click)="cancelDelete()"
+  class="fixed inset-0 z-[1000]
+         flex items-center justify-center
+         bg-slate-950/60 p-5
+         backdrop-blur-sm">
 
   <section
-    class="delete-modal"
-    (click)="$event.stopPropagation()">
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="delete-modal-title"
+    (click)="$event.stopPropagation()"
+    class="w-full max-w-md
+           rounded-2xl border
+           border-[var(--border-color)]
+           bg-[var(--bg-surface)]
+           p-7 text-center
+           shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
 
-    <div class="modal-icon">
-      !
+    <!-- Icono de advertencia -->
+    <div
+      class="mx-auto flex h-16 w-16
+             items-center justify-center
+             rounded-full border
+             border-[var(--danger-border)]
+             bg-[var(--danger-bg)]
+             text-[var(--danger-text)]">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+
+        <path
+          d="M10.3 2.9 1.8 17a2 2 0 0 0
+             1.7 3h17a2 2 0 0 0
+             1.7-3L13.7 2.9a2 2 0 0 0-3.4 0Z">
+        </path>
+
+        <path d="M12 9v4"></path>
+        <path d="M12 17h.01"></path>
+      </svg>
     </div>
 
-    <h2>¿Eliminar de favoritos?</h2>
+    <h2
+      id="delete-modal-title"
+      class="mt-5 text-2xl font-extrabold">
 
-    <p>
+      ¿Eliminar de favoritos?
+    </h2>
+
+    <p class="mt-3 leading-6 text-[var(--text-muted)]">
       Estás por eliminar
-      <strong>{{ animeToDelete?.title }}</strong>
+      <strong class="text-[var(--text-main)]">
+        {{ animeToDelete?.title }}
+      </strong>
       de tu lista de favoritos.
     </p>
 
-    <div class="modal-actions">
+    <p class="mt-2 text-sm text-[var(--text-muted)]">
+      También se eliminarán su estado y su nota personal.
+    </p>
+
+    <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+
       <button
         type="button"
-        class="cancel-btn"
-        (click)="cancelDelete()">
+        (click)="cancelDelete()"
+        class="flex-1 rounded-xl border
+               border-[var(--border-color)]
+               bg-[var(--bg-soft)]
+               px-5 py-3 font-bold
+               text-[var(--text-main)]
+               transition
+               hover:border-[var(--primary)]
+               hover:text-[var(--primary)]">
+
         Cancelar
       </button>
 
       <button
         type="button"
-        class="confirm-delete-btn"
-        (click)="confirmDelete()">
+        (click)="confirmDelete()"
+        class="flex-1 rounded-xl border
+               border-[var(--danger-border)]
+               bg-[var(--danger-bg)]
+               px-5 py-3 font-bold
+               text-[var(--danger-text)]
+               transition
+               hover:brightness-95
+               focus:outline-none
+               focus:ring-2
+               focus:ring-[var(--danger-border)]">
+
         Eliminar
       </button>
     </div>
-
   </section>
-
 </div>
