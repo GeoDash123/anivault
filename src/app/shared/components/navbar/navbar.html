@@ -1,91 +1,259 @@
-<header class="navbar">
-  <a class="brand" routerLink="/">
-    <span class="logo">▷</span>
-    <span>AniVault</span>
-  </a>
+<header
+  class="sticky top-0 z-50
+         border-b border-[var(--border-color)]
+         bg-[var(--bg-surface)]/95
+         text-[var(--text-main)]
+         shadow-sm backdrop-blur">
 
-  <div class="nav-right">
-    <nav class="nav-links">
-      <a
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }">
-        Inicio
-      </a>
+  <div
+    class="mx-auto flex w-full max-w-[1600px]
+           flex-col gap-3 px-4 py-3
+           sm:flex-row sm:items-center sm:justify-between
+           md:px-6 lg:px-8">
 
-      <a
-        *ngIf="authService.loggedIn()"
-        routerLink="/favoritos"
-        routerLinkActive="active">
-        Favoritos
-      </a>
+    <!-- Marca -->
+    <a
+      routerLink="/"
+      aria-label="Ir al inicio de AniVault"
+      class="flex shrink-0 items-center gap-2
+             text-xl font-extrabold
+             text-[var(--text-main)]
+             transition hover:text-[var(--primary)]">
 
-      <a
-        *ngIf="!authService.loggedIn()"
-        routerLink="/login"
-        routerLinkActive="active">
-        Iniciar sesión
-      </a>
+      <span
+        class="flex h-9 w-9 items-center justify-center
+               rounded-xl bg-[var(--primary)]
+               text-lg text-white shadow-sm"
+        aria-hidden="true">
 
+        ▷
+      </span>
+
+      <span>AniVault</span>
+    </a>
+
+    <!-- Navegación y tema -->
+    <div
+      class="flex flex-wrap items-center gap-3
+             sm:justify-end">
+
+      <nav
+        aria-label="Navegación principal"
+        class="flex flex-wrap items-center gap-1">
+
+        <!-- Inicio -->
+        <a
+          routerLink="/"
+          routerLinkActive="bg-[var(--primary-soft)] text-[var(--primary)]"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="rounded-xl px-4 py-2
+                 text-sm font-semibold
+                 text-[var(--text-muted)]
+                 transition
+                 hover:bg-[var(--bg-soft)]
+                 hover:text-[var(--primary)]">
+
+          Inicio
+        </a>
+
+        <!-- Favoritos -->
+        <a
+          *ngIf="authService.loggedIn()"
+          routerLink="/favoritos"
+          routerLinkActive="bg-[var(--primary-soft)] text-[var(--primary)]"
+          class="rounded-xl px-4 py-2
+                 text-sm font-semibold
+                 text-[var(--text-muted)]
+                 transition
+                 hover:bg-[var(--bg-soft)]
+                 hover:text-[var(--primary)]">
+
+          Favoritos
+        </a>
+
+        <!-- Inicio de sesión -->
+        <a
+          *ngIf="!authService.loggedIn()"
+          routerLink="/login"
+          routerLinkActive="bg-[var(--primary-soft)] text-[var(--primary)]"
+          class="rounded-xl px-4 py-2
+                 text-sm font-semibold
+                 text-[var(--text-muted)]
+                 transition
+                 hover:bg-[var(--bg-soft)]
+                 hover:text-[var(--primary)]">
+
+          Iniciar sesión
+        </a>
+
+        <!-- Cerrar sesión -->
+        <button
+          *ngIf="authService.loggedIn()"
+          type="button"
+          (click)="openLogoutModal()"
+          class="rounded-xl border
+                 border-[var(--danger-border)]
+                 bg-[var(--danger-bg)]
+                 px-4 py-2
+                 text-sm font-bold
+                 text-[var(--danger-text)]
+                 transition
+                 hover:brightness-95
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-[var(--danger-border)]">
+
+          Cerrar sesión
+        </button>
+      </nav>
+
+      <!-- Interruptor de tema -->
       <button
-        *ngIf="authService.loggedIn()"
         type="button"
-        class="logout-btn"
-        (click)="openLogoutModal()">
-        Cerrar sesión
+        (click)="themeService.toggleTheme()"
+        [attr.aria-label]="
+          themeService.isDark()
+            ? 'Activar modo claro'
+            : 'Activar modo oscuro'
+        "
+        [attr.aria-pressed]="themeService.isDark()"
+        class="relative h-9 w-16 shrink-0
+               rounded-full border
+               border-[var(--border-color)]
+               bg-[var(--bg-soft)]
+               shadow-inner transition
+               focus:outline-none
+               focus:ring-2
+               focus:ring-[var(--primary)]">
+
+        <!-- Sol -->
+        <span
+          class="absolute left-2 top-1/2
+                 -translate-y-1/2 text-sm"
+          aria-hidden="true">
+
+          ☀
+        </span>
+
+        <!-- Luna -->
+        <span
+          class="absolute right-2 top-1/2
+                 -translate-y-1/2 text-sm"
+          aria-hidden="true">
+
+          ☾
+        </span>
+
+        <!-- Círculo móvil -->
+        <span
+          class="absolute left-1 top-1/2
+                 h-7 w-7 -translate-y-1/2
+                 rounded-full bg-[var(--primary)]
+                 shadow-md transition-transform duration-300"
+          [class.translate-x-7]="themeService.isDark()">
+
+        </span>
       </button>
-    </nav>
-
-    <button
-      type="button"
-      class="theme-toggle"
-      [class.dark]="themeService.isDark()"
-      (click)="themeService.toggleTheme()"
-      [attr.aria-label]="themeService.isDark() ? 'Activar modo claro' : 'Activar modo oscuro'">
-
-      <span class="toggle-icon sun">☀️</span>
-      <span class="toggle-icon moon">🌙</span>
-      <span class="toggle-thumb"></span>
-
-    </button>
+    </div>
   </div>
 </header>
 
+<!-- Modal para cerrar sesión -->
 <div
-  class="modal-backdrop"
   *ngIf="showLogoutModal"
-  (click)="cancelLogout()">
+  (click)="cancelLogout()"
+  class="fixed inset-0 z-[1000]
+         flex items-center justify-center
+         bg-slate-950/60 p-5
+         backdrop-blur-sm">
 
   <section
-    class="logout-modal"
-    (click)="$event.stopPropagation()">
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="logout-modal-title"
+    (click)="$event.stopPropagation()"
+    class="w-full max-w-md
+           rounded-2xl border
+           border-[var(--border-color)]
+           bg-[var(--bg-surface)]
+           p-7 text-center
+           text-[var(--text-main)]
+           shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
 
-    <div class="modal-icon">
-      ⎋
+    <!-- Icono -->
+    <div
+      class="mx-auto flex h-16 w-16
+             items-center justify-center
+             rounded-full border
+             border-[var(--danger-border)]
+             bg-[var(--danger-bg)]
+             text-[var(--danger-text)]">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+
+        <path d="M10 17l5-5-5-5"></path>
+        <path d="M15 12H3"></path>
+        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+      </svg>
     </div>
 
-    <h2>¿Cerrar sesión?</h2>
+    <h2
+      id="logout-modal-title"
+      class="mt-5 text-2xl font-extrabold">
 
-    <p>
+      ¿Cerrar sesión?
+    </h2>
+
+    <p class="mt-3 leading-6 text-[var(--text-muted)]">
       Tu sesión actual se cerrará. Podrás volver a iniciar sesión cuando quieras.
     </p>
 
-    <div class="modal-actions">
+    <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+
       <button
         type="button"
-        class="cancel-btn"
-        (click)="cancelLogout()">
+        (click)="cancelLogout()"
+        class="flex-1 rounded-xl border
+               border-[var(--border-color)]
+               bg-[var(--bg-soft)]
+               px-5 py-3 font-bold
+               text-[var(--text-main)]
+               transition
+               hover:border-[var(--primary)]
+               hover:text-[var(--primary)]
+               focus:outline-none
+               focus:ring-2
+               focus:ring-[var(--primary)]">
+
         Cancelar
       </button>
 
       <button
         type="button"
-        class="confirm-btn"
-        (click)="confirmLogout()">
+        (click)="confirmLogout()"
+        class="flex-1 rounded-xl border
+               border-[var(--danger-border)]
+               bg-[var(--danger-bg)]
+               px-5 py-3 font-bold
+               text-[var(--danger-text)]
+               transition
+               hover:brightness-95
+               focus:outline-none
+               focus:ring-2
+               focus:ring-[var(--danger-border)]">
+
         Cerrar sesión
       </button>
     </div>
-
   </section>
-
 </div>
