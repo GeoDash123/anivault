@@ -5,6 +5,8 @@ import { AnimeCard } from '../../../shared/components/anime-card/anime-card';
 import { FormsModule } from '@angular/forms';
 import { Loading } from '../../../shared/components/loading/loading';
 import { ErrorMessage } from '../../../shared/components/error-message/error-message';
+import { Anime } from '../../../core/models/anime.model';
+import { AnimeResponse } from '../../../core/interfaces/anime-response.interface';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +15,9 @@ import { ErrorMessage } from '../../../shared/components/error-message/error-mes
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
-  allAnimes: any[] = [];
-  animes: any[] = [];
-  trendingAnimes: any[] = [];
+  allAnimes: Anime[] = [];
+  animes: Anime[] = [];
+  trendingAnimes: Anime[] = [];
 
   searchText = '';
 
@@ -42,7 +44,7 @@ export class Home implements OnInit {
     this.error = '';
 
     this.animeService.getTopAnime().subscribe({
-      next: (response: any) => {
+      next: (response: AnimeResponse) => {
         this.allAnimes = response.data || [];
         this.applyFilters();
 
@@ -60,7 +62,7 @@ export class Home implements OnInit {
 
   loadTrendingAnime(): void {
     this.animeService.getTrendingAnime().subscribe({
-      next: (response: any) => {
+      next: (response: AnimeResponse) => {
         this.trendingAnimes = response.data || [];
         this.cdr.detectChanges();
       },
@@ -82,7 +84,7 @@ export class Home implements OnInit {
     this.error = '';
 
     this.animeService.searchAnime(this.searchText).subscribe({
-      next: (response: any) => {
+      next: (response: AnimeResponse) => {
         this.allAnimes = response.data || [];
         this.applyFilters();
 

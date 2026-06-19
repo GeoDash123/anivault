@@ -1,28 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface AnimeResponse {
-  data: Anime[];
-}
-
-export interface Anime {
-  mal_id: number;
-  title: string;
-  title_japanese?: string;
-  synopsis?: string;
-  score?: number;
-  episodes?: number;
-  status?: string;
-  type?: string;
-  year?: number;
-  images: {
-    jpg: {
-      image_url: string;
-      large_image_url: string;
-    };
-  };
-}
+import { Anime } from '../models/anime.model';
+import { AnimeResponse } from '../interfaces/anime-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +18,12 @@ export class AnimeService {
     );
   }
 
-  getTopAnime(limit: number = 10) {
-    return this.http.get(`${this.apiUrl}/top/anime?limit=${limit}`);
+  getTopAnime(limit: number = 10): Observable<AnimeResponse> {
+    return this.http.get<AnimeResponse>(`${this.apiUrl}/top/anime?limit=${limit}`);
   }
 
-  getAnimeById(id: number): Observable<any> {
-    return this.http.get<any>(
+  getAnimeById(id: number): Observable< { data: Anime }> {
+    return this.http.get< { data: Anime } >(
       `${this.apiUrl}/anime/${id}/full`
     );
   }
@@ -53,7 +33,7 @@ export class AnimeService {
       `${this.apiUrl}/seasons/now?limit=12&sfw=true`
     );
   }
-  getTrendingAnime() {
-    return this.http.get(`${this.apiUrl}/top/anime?limit=3`);
+  getTrendingAnime(): Observable<AnimeResponse> {
+    return this.http.get<AnimeResponse>(`${this.apiUrl}/top/anime?limit=3`);
   }
 }
