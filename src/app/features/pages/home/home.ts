@@ -7,10 +7,11 @@ import { Loading } from '../../../shared/components/loading/loading';
 import { ErrorMessage } from '../../../shared/components/error-message/error-message';
 import { Anime } from '../../../core/models/anime.model';
 import { AnimeResponse } from '../../../core/interfaces/anime-response.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, AnimeCard, FormsModule, Loading, ErrorMessage],
+  imports: [CommonModule, AnimeCard, FormsModule, Loading, ErrorMessage, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

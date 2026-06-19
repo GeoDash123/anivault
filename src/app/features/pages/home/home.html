@@ -1,123 +1,486 @@
-<section class="hero">
-  <h1>Explora animes</h1>
-  <p>Encuentra series por género, puntuación y temporada.</p>
+<main class="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
 
-  <div class="search-box">
+  <!-- Encabezado y buscador -->
+  <section
+    class="border-b border-[var(--border-color)] px-4 py-14 text-center md:py-16"
+    style="background: var(--hero-bg);">
 
-    <input
-      type="text"
-      placeholder="Buscar por título, género o estudio..."
-      [(ngModel)]="searchText"
-      (keyup.enter)="searchAnime()"
-    />
+    <h1 class="text-4xl font-extrabold tracking-tight md:text-5xl">
+      Explora animes
+    </h1>
 
-    <button type="button" (click)="searchAnime()">Buscar</button>
-  </div>
-</section>
-
-<main class="layout">
-  <aside class="filters">
-    <h2>Filtros</h2>
-
-    <label>Formato</label>
-    <select [(ngModel)]="selectedType" (change)="applyFilters()">
-      <option value="">Todos los formatos</option>
-      <option value="tv">TV</option>
-      <option value="movie">Película</option>
-      <option value="ova">OVA</option>
-      <option value="ona">ONA</option>
-      <option value="special">Especial</option>
-    </select>
-
-    <label>Estado</label>
-    <select [(ngModel)]="selectedStatus" (change)="applyFilters()">
-      <option value="">Todos los estados</option>
-      <option value="airing">En emisión</option>
-      <option value="finished">Finalizado</option>
-      <option value="not yet aired">Próximamente</option>
-    </select>
-
-    <label>Género</label>
-    <select [(ngModel)]="selectedGenre" (change)="applyFilters()">
-      <option value="">Todos los géneros</option>
-      <option value="action">Acción</option>
-      <option value="adventure">Aventura</option>
-      <option value="comedy">Comedia</option>
-      <option value="drama">Drama</option>
-      <option value="fantasy">Fantasía</option>
-      <option value="romance">Romance</option>
-      <option value="sci-fi">Ciencia ficción</option>
-      <option value="slice of life">Slice of Life</option>
-      <option value="sports">Deportes</option>
-      <option value="supernatural">Sobrenatural</option>
-    </select>
-
-    <label>Ordenar por</label>
-    <select [(ngModel)]="selectedOrder" (change)="applyFilters()">
-      <option value="popularidad">Popularidad</option>
-      <option value="puntuacion">Puntuación</option>
-      <option value="titulo">Título</option>
-      <option value="episodios">Episodios</option>
-    </select>
-
-    <button
-      type="button"
-      class="clear-btn"
-      (click)="clearFilters()">
-      Limpiar filtros
-    </button>
-  </aside>
-
-  <section class="results">
-    <div class="section-header">
-      <div>
-        <h2>Resultados</h2>
-        <p>{{ animes.length }} animes encontrados</p>
-      </div>
-
-    </div>
-
-    <app-loading
-      *ngIf="loading"
-      message="Cargando ranking de animes...">
-    </app-loading>
-
-    <app-error-message
-      *ngIf="error"
-      [message]="error">
-    </app-error-message>
-
-    <div class="anime-grid" *ngIf="!loading && animes.length > 0">
-      <app-anime-card
-        *ngFor="let anime of animes"
-        [anime]="anime">
-      </app-anime-card>
-    </div>
-
-    <p *ngIf="!loading && animes.length === 0 && !error">
-      No hay animes para mostrar.
+    <p class="mx-auto mt-4 max-w-2xl text-base text-[var(--text-muted)] md:text-lg">
+      Encuentra series por género, puntuación y temporada.
     </p>
 
+    <div
+      class="mx-auto mt-8 flex max-w-2xl flex-col gap-3
+             rounded-2xl border border-[var(--border-color)]
+             bg-[var(--bg-surface)] p-3
+             shadow-[0_14px_35px_var(--shadow-soft)]
+             sm:flex-row">
 
+      <input
+        type="search"
+        [(ngModel)]="searchText"
+        (keyup.enter)="searchAnime()"
+        placeholder="Buscar por título, género o estudio..."
+        aria-label="Buscar anime"
+        class="min-w-0 flex-1 rounded-xl border
+               border-[var(--border-color)]
+               bg-[var(--bg-main)]
+               px-4 py-3
+               text-[var(--text-main)]
+               outline-none transition
+               placeholder:text-[var(--text-muted)]
+               focus:border-[var(--primary)]
+               focus:ring-2
+               focus:ring-[var(--primary)]">
+
+      <button
+        type="button"
+        (click)="searchAnime()"
+        [disabled]="loading"
+        class="rounded-xl bg-[var(--primary)]
+               px-7 py-3 font-bold text-white
+               transition
+               hover:bg-[var(--primary-hover)]
+               focus:outline-none
+               focus:ring-2
+               focus:ring-[var(--primary)]
+               disabled:cursor-not-allowed
+               disabled:opacity-60">
+
+        {{ loading ? 'Buscando...' : 'Buscar' }}
+      </button>
+    </div>
   </section>
 
-  <aside class="trending">
-    <h2>Tendencias</h2>
+  <!-- Contenido principal -->
+  <section
+    class="mx-auto grid w-full max-w-[1600px]
+           grid-cols-1 gap-6 px-4 py-8
+           md:px-6
+           lg:grid-cols-[240px_minmax(0,1fr)]
+           xl:grid-cols-[240px_minmax(0,1fr)_300px]
+           lg:px-8">
 
-    <article class="trend-card" *ngFor="let anime of trendingAnimes">
-      <img [src]="anime.images.jpg.image_url" [alt]="anime.title" />
+    <!-- Filtros -->
+    <aside
+      class="h-fit rounded-2xl border
+             border-[var(--border-color)]
+             bg-[var(--bg-surface)]
+             p-5
+             shadow-[0_10px_30px_var(--shadow-soft)]
+             lg:sticky lg:top-24">
 
-      <div>
-        <h3>{{ anime.title }}</h3>
-        <p>⭐ {{ anime.score || 'N/A' }} · {{ anime.episodes || '?' }} ep.</p>
-        <span>{{ anime.type || 'TV' }}</span>
+      <div class="mb-6 flex items-center justify-between">
+        <h2 class="text-xl font-bold">
+          Filtros
+        </h2>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="21"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-[var(--text-muted)]"
+          aria-hidden="true">
+
+          <path d="M4 21v-7"></path>
+          <path d="M4 10V3"></path>
+          <path d="M12 21v-9"></path>
+          <path d="M12 8V3"></path>
+          <path d="M20 21v-5"></path>
+          <path d="M20 12V3"></path>
+          <path d="M2 14h4"></path>
+          <path d="M10 8h4"></path>
+          <path d="M18 16h4"></path>
+        </svg>
       </div>
-    </article>
 
-  </aside>
+      <!-- Formato -->
+      <div class="mb-5">
+        <label
+          for="filter-type"
+          class="mb-2 block text-sm font-bold">
+
+          Formato
+        </label>
+
+        <select
+          id="filter-type"
+          [(ngModel)]="selectedType"
+          (change)="applyFilters()"
+          class="w-full rounded-xl border
+                 border-[var(--border-color)]
+                 bg-[var(--bg-main)]
+                 px-3 py-2.5
+                 text-[var(--text-main)]
+                 outline-none transition
+                 focus:border-[var(--primary)]
+                 focus:ring-2
+                 focus:ring-[var(--primary)]">
+
+          <option value="">Todos los formatos</option>
+          <option value="tv">TV</option>
+          <option value="movie">Película</option>
+          <option value="ova">OVA</option>
+          <option value="ona">ONA</option>
+          <option value="special">Especial</option>
+        </select>
+      </div>
+
+      <!-- Estado -->
+      <div class="mb-5">
+        <label
+          for="filter-status"
+          class="mb-2 block text-sm font-bold">
+
+          Estado
+        </label>
+
+        <select
+          id="filter-status"
+          [(ngModel)]="selectedStatus"
+          (change)="applyFilters()"
+          class="w-full rounded-xl border
+                 border-[var(--border-color)]
+                 bg-[var(--bg-main)]
+                 px-3 py-2.5
+                 text-[var(--text-main)]
+                 outline-none transition
+                 focus:border-[var(--primary)]
+                 focus:ring-2
+                 focus:ring-[var(--primary)]">
+
+          <option value="">Todos los estados</option>
+          <option value="airing">En emisión</option>
+          <option value="finished">Finalizado</option>
+          <option value="not yet aired">Próximamente</option>
+        </select>
+      </div>
+
+      <!-- Género -->
+      <div class="mb-5">
+        <label
+          for="filter-genre"
+          class="mb-2 block text-sm font-bold">
+
+          Género
+        </label>
+
+        <select
+          id="filter-genre"
+          [(ngModel)]="selectedGenre"
+          (change)="applyFilters()"
+          class="w-full rounded-xl border
+                 border-[var(--border-color)]
+                 bg-[var(--bg-main)]
+                 px-3 py-2.5
+                 text-[var(--text-main)]
+                 outline-none transition
+                 focus:border-[var(--primary)]
+                 focus:ring-2
+                 focus:ring-[var(--primary)]">
+
+          <option value="">Todos los géneros</option>
+          <option value="action">Acción</option>
+          <option value="adventure">Aventura</option>
+          <option value="comedy">Comedia</option>
+          <option value="drama">Drama</option>
+          <option value="fantasy">Fantasía</option>
+          <option value="romance">Romance</option>
+          <option value="sci-fi">Ciencia ficción</option>
+          <option value="slice of life">Slice of Life</option>
+          <option value="sports">Deportes</option>
+          <option value="supernatural">Sobrenatural</option>
+        </select>
+      </div>
+
+      <!-- Orden -->
+      <div class="mb-6">
+        <label
+          for="filter-order"
+          class="mb-2 block text-sm font-bold">
+
+          Ordenar por
+        </label>
+
+        <select
+          id="filter-order"
+          [(ngModel)]="selectedOrder"
+          (change)="applyFilters()"
+          class="w-full rounded-xl border
+                 border-[var(--border-color)]
+                 bg-[var(--bg-main)]
+                 px-3 py-2.5
+                 text-[var(--text-main)]
+                 outline-none transition
+                 focus:border-[var(--primary)]
+                 focus:ring-2
+                 focus:ring-[var(--primary)]">
+
+          <option value="popularidad">Popularidad</option>
+          <option value="puntuacion">Puntuación</option>
+          <option value="titulo">Título</option>
+          <option value="episodios">Episodios</option>
+        </select>
+      </div>
+
+      <button
+        type="button"
+        (click)="clearFilters()"
+        class="w-full rounded-xl border
+               border-[var(--border-color)]
+               bg-[var(--bg-soft)]
+               px-4 py-2.5
+               text-sm font-bold
+               text-[var(--text-main)]
+               transition
+               hover:border-[var(--primary)]
+               hover:text-[var(--primary)]
+               focus:outline-none
+               focus:ring-2
+               focus:ring-[var(--primary)]">
+
+        Limpiar filtros
+      </button>
+    </aside>
+
+    <!-- Resultados -->
+    <section class="min-w-0">
+
+      <div
+        class="mb-6 flex flex-col gap-2
+               sm:flex-row sm:items-center sm:justify-between">
+
+        <div>
+          <h2 class="text-2xl font-bold">
+            Resultados
+          </h2>
+
+          <p class="mt-1 text-sm text-[var(--text-muted)]">
+            {{ animes.length }}
+            {{ animes.length === 1 ? 'anime encontrado' : 'animes encontrados' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Cargando -->
+      <div
+        *ngIf="loading"
+        class="rounded-2xl border
+               border-[var(--border-color)]
+               bg-[var(--bg-surface)]
+               p-6">
+
+        <app-loading message="Cargando animes...">
+        </app-loading>
+      </div>
+
+      <!-- Error -->
+      <div
+        *ngIf="error && !loading"
+        class="rounded-2xl border
+               border-[var(--border-color)]
+               bg-[var(--bg-surface)]
+               p-6">
+
+        <app-error-message [message]="error">
+        </app-error-message>
+      </div>
+
+      <!-- Cuadrícula de animes -->
+      <div
+        *ngIf="!loading && animes.length > 0"
+        class="grid grid-cols-1 gap-6
+               sm:grid-cols-2
+               lg:grid-cols-2
+               2xl:grid-cols-3">
+
+        <app-anime-card
+          *ngFor="let anime of animes"
+          [anime]="anime">
+        </app-anime-card>
+      </div>
+
+      <!-- Sin resultados -->
+      <section
+        *ngIf="!loading && animes.length === 0 && !error"
+        class="rounded-2xl border border-dashed
+               border-[var(--border-color)]
+               bg-[var(--bg-surface)]
+               px-6 py-16 text-center">
+
+        <div
+          class="mx-auto flex h-16 w-16
+                 items-center justify-center
+                 rounded-full
+                 bg-[var(--primary-soft)]
+                 text-[var(--primary)]">
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </div>
+
+        <h2 class="mt-5 text-2xl font-bold">
+          No hay animes para mostrar
+        </h2>
+
+        <p class="mx-auto mt-2 max-w-lg text-[var(--text-muted)]">
+          Intenta cambiar los filtros o realiza otra búsqueda.
+        </p>
+
+        <button
+          type="button"
+          (click)="clearFilters()"
+          class="mt-6 rounded-xl bg-[var(--primary)]
+                 px-5 py-2.5 font-bold text-white
+                 transition
+                 hover:bg-[var(--primary-hover)]">
+
+          Limpiar filtros
+        </button>
+      </section>
+    </section>
+
+    <!-- Tendencias -->
+    <aside
+      class="h-fit rounded-2xl border
+             border-[var(--border-color)]
+             bg-[var(--bg-surface)]
+             p-5
+             shadow-[0_10px_30px_var(--shadow-soft)]
+             lg:col-span-2
+             xl:col-span-1
+             xl:sticky xl:top-24">
+
+      <div class="mb-5 flex items-center justify-between">
+        <h2 class="text-xl font-bold">
+          Tendencias
+        </h2>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="21"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-[var(--primary)]"
+          aria-hidden="true">
+
+          <path d="m3 17 6-6 4 4 8-8"></path>
+          <path d="M14 7h7v7"></path>
+        </svg>
+      </div>
+
+      <div
+        *ngIf="trendingAnimes.length > 0"
+        class="grid gap-4
+               sm:grid-cols-2
+               lg:grid-cols-3
+               xl:grid-cols-1">
+
+        <article
+          *ngFor="let anime of trendingAnimes"
+          class="group flex min-w-0 gap-3
+                 rounded-xl border
+                 border-[var(--border-color)]
+                 bg-[var(--bg-main)]
+                 p-3 transition
+                 hover:border-[var(--primary)]
+                 hover:shadow-md">
+
+          <a
+            [routerLink]="['/anime', anime.mal_id]"
+            class="shrink-0 overflow-hidden rounded-lg">
+
+            <img
+              [src]="anime.images.jpg.image_url"
+              [alt]="anime.title"
+              loading="lazy"
+              class="h-24 w-16 object-cover
+                     transition duration-300
+                     group-hover:scale-105">
+          </a>
+
+          <div class="min-w-0 flex-1">
+            <a
+              [routerLink]="['/anime', anime.mal_id]"
+              class="block">
+
+              <h3
+                class="line-clamp-2 text-sm font-bold
+                       leading-5 transition
+                       hover:text-[var(--primary)]">
+
+                {{ anime.title }}
+              </h3>
+            </a>
+
+            <p class="mt-2 text-xs text-[var(--text-muted)]">
+              <span class="text-amber-500">★</span>
+              {{ anime.score || 'N/A' }}
+              <span aria-hidden="true">·</span>
+              {{ anime.episodes || '?' }} ep.
+            </p>
+
+            <span
+              class="mt-2 inline-flex rounded-md
+                     bg-[var(--primary-soft)]
+                     px-2 py-1 text-xs font-bold
+                     text-[var(--primary)]">
+
+              {{ anime.type || 'TV' }}
+            </span>
+          </div>
+        </article>
+      </div>
+
+      <p
+        *ngIf="trendingAnimes.length === 0"
+        class="text-sm text-[var(--text-muted)]">
+
+        No hay tendencias disponibles.
+      </p>
+    </aside>
+  </section>
+
+  <!-- Pie de página -->
+  <footer
+    class="border-t border-[var(--border-color)]
+           bg-[var(--bg-surface)]
+           px-4 py-8 text-center">
+
+    <strong class="block text-lg font-extrabold text-[var(--primary)]">
+      AniVault
+    </strong>
+
+    <span class="mt-2 block text-sm text-[var(--text-muted)]">
+      Descubre tu próximo anime, siempre contigo.
+    </span>
+  </footer>
 </main>
-
-<footer class="footer">
-  <strong>AniVault</strong>
-  <span>Descubre tu próximo anime, siempre contigo.</span>
-</footer>
