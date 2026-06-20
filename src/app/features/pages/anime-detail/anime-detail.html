@@ -1,43 +1,289 @@
-<p *ngIf="loading">Cargando detalle...</p>
-<p *ngIf="error">{{ error }}</p>
+<main class="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
 
-<main class="detail-page" *ngIf="anime && !loading">
-  <button class="back-btn" type="button" (click)="goBack()">
-    ← Volver
-  </button>
+  <!-- Estado de carga -->
+  <section
+    *ngIf="loading"
+    class="mx-auto flex min-h-[60vh] max-w-7xl
+           items-center justify-center px-4 py-10">
 
-  <section class="detail-card">
-    <img
-      class="poster"
-      [src]="anime.images.jpg.large_image_url"
-      [alt]="anime.title"
-    />
+    <div
+      class="rounded-2xl border
+             border-[var(--border-color)]
+             bg-[var(--bg-surface)]
+             px-8 py-6 text-center
+             shadow-[0_12px_35px_var(--shadow-soft)]">
 
-    <div class="info">
-      <span class="tag">{{ anime.type || 'Anime' }}</span>
-
-      <h1>{{ anime.title }}</h1>
-
-      <p class="japanese-title" *ngIf="anime.title_japanese">
-        {{ anime.title_japanese }}
-      </p>
-
-      <div class="stats">
-        <span>⭐ {{ anime.score || 'N/A' }}</span>
-        <span>{{ anime.episodes || '?' }} episodios</span>
-        <span>{{ anime.status || 'Sin estado' }}</span>
-        <span>{{ anime.year || 'Sin año' }}</span>
+      <div
+        class="mx-auto h-10 w-10 animate-spin
+               rounded-full border-4
+               border-[var(--border-color)]
+               border-t-[var(--primary)]">
       </div>
 
-      <p class="synopsis">
-        {{ anime.synopsis || 'Sin sinopsis disponible.' }}
+      <p class="mt-4 font-semibold text-[var(--text-muted)]">
+        Cargando detalle...
       </p>
-
-      <div class="genres" *ngIf="anime.genres?.length">
-        <span *ngFor="let genre of anime.genres">
-          {{ genre.name }}
-        </span>
-      </div>
     </div>
+  </section>
+
+  <!-- Mensaje de error -->
+  <section
+    *ngIf="error && !loading"
+    class="mx-auto flex min-h-[60vh] max-w-7xl
+           items-center justify-center px-4 py-10">
+
+    <div
+      class="w-full max-w-lg rounded-2xl border
+             border-[var(--danger-border)]
+             bg-[var(--danger-bg)]
+             p-6 text-center
+             text-[var(--danger-text)]">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="mx-auto"
+        aria-hidden="true">
+
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 8v4"></path>
+        <path d="M12 16h.01"></path>
+      </svg>
+
+      <h2 class="mt-4 text-xl font-bold">
+        No se pudo cargar el anime
+      </h2>
+
+      <p class="mt-2">
+        {{ error }}
+      </p>
+
+      <button
+        type="button"
+        (click)="goBack()"
+        class="mt-6 rounded-xl border
+               border-[var(--danger-border)]
+               px-5 py-2.5 font-bold
+               transition hover:brightness-95">
+
+        Volver
+      </button>
+    </div>
+  </section>
+
+  <!-- Detalle del anime -->
+  <section
+    *ngIf="anime && !loading"
+    class="mx-auto w-full max-w-7xl px-4 py-8
+           md:px-6 lg:px-8">
+
+    <!-- Botón volver -->
+    <button
+      type="button"
+      (click)="goBack()"
+      class="mb-6 inline-flex items-center gap-2
+             rounded-xl border
+             border-[var(--border-color)]
+             bg-[var(--bg-surface)]
+             px-4 py-2.5
+             text-sm font-bold
+             text-[var(--text-main)]
+             shadow-sm transition
+             hover:border-[var(--primary)]
+             hover:text-[var(--primary)]
+             focus:outline-none
+             focus:ring-2
+             focus:ring-[var(--primary)]">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+
+        <path d="m15 18-6-6 6-6"></path>
+      </svg>
+
+      Volver
+    </button>
+
+    <!-- Tarjeta principal -->
+    <article
+      class="grid overflow-hidden rounded-3xl border
+             border-[var(--border-color)]
+             bg-[var(--bg-surface)]
+             shadow-[0_20px_55px_var(--shadow-soft)]
+             lg:grid-cols-[340px_minmax(0,1fr)]">
+
+      <!-- Poster -->
+      <div
+        class="flex items-start justify-center
+               bg-[var(--bg-soft)] p-5
+               sm:p-8">
+
+        <img
+          [src]="anime.images.jpg.large_image_url"
+          [alt]="anime.title"
+          class="w-full max-w-[340px]
+                 rounded-2xl object-cover
+                 shadow-[0_18px_45px_rgba(0,0,0,0.25)]">
+      </div>
+
+      <!-- Información -->
+      <div class="min-w-0 p-6 sm:p-8 lg:p-10">
+
+        <!-- Tipo -->
+        <span
+          class="inline-flex rounded-lg
+                 bg-[var(--primary-soft)]
+                 px-3 py-1.5
+                 text-xs font-bold uppercase
+                 tracking-wide
+                 text-[var(--primary)]">
+
+          {{ anime.type || 'Anime' }}
+        </span>
+
+        <!-- Título -->
+        <h1
+          class="mt-4 text-3xl font-extrabold
+                 leading-tight tracking-tight
+                 sm:text-4xl lg:text-5xl">
+
+          {{ anime.title }}
+        </h1>
+
+        <!-- Título japonés -->
+        <p
+          *ngIf="anime.title_japanese"
+          class="mt-3 text-lg text-[var(--text-muted)]">
+
+          {{ anime.title_japanese }}
+        </p>
+
+        <!-- Estadísticas -->
+        <div
+          class="mt-7 grid grid-cols-2 gap-3
+                 sm:grid-cols-4">
+
+          <!-- Puntuación -->
+          <div
+            class="rounded-xl border
+                   border-[var(--border-color)]
+                   bg-[var(--bg-main)]
+                   p-4">
+
+            <p class="text-xs font-bold uppercase text-[var(--text-muted)]">
+              Puntuación
+            </p>
+
+            <p class="mt-2 font-bold">
+              <span class="text-amber-500">★</span>
+              {{ anime.score || 'N/A' }}
+            </p>
+          </div>
+
+          <!-- Episodios -->
+          <div
+            class="rounded-xl border
+                   border-[var(--border-color)]
+                   bg-[var(--bg-main)]
+                   p-4">
+
+            <p class="text-xs font-bold uppercase text-[var(--text-muted)]">
+              Episodios
+            </p>
+
+            <p class="mt-2 font-bold">
+              {{ anime.episodes || '?' }}
+            </p>
+          </div>
+
+          <!-- Estado -->
+          <div
+            class="rounded-xl border
+                   border-[var(--border-color)]
+                   bg-[var(--bg-main)]
+                   p-4">
+
+            <p class="text-xs font-bold uppercase text-[var(--text-muted)]">
+              Estado
+            </p>
+
+            <p class="mt-2 font-bold">
+              {{ anime.status || 'Sin estado' }}
+            </p>
+          </div>
+
+          <!-- Año -->
+          <div
+            class="rounded-xl border
+                   border-[var(--border-color)]
+                   bg-[var(--bg-main)]
+                   p-4">
+
+            <p class="text-xs font-bold uppercase text-[var(--text-muted)]">
+              Año
+            </p>
+
+            <p class="mt-2 font-bold">
+              {{ anime.year || 'Sin año' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Sinopsis -->
+        <section class="mt-8">
+          <h2 class="text-xl font-bold">
+            Sinopsis
+          </h2>
+
+          <p
+            class="mt-3 whitespace-pre-line
+                   text-base leading-7
+                   text-[var(--text-muted)]">
+
+            {{ anime.synopsis || 'Sin sinopsis disponible.' }}
+          </p>
+        </section>
+
+        <!-- Géneros -->
+        <section
+          *ngIf="anime.genres?.length"
+          class="mt-8">
+
+          <h2 class="text-xl font-bold">
+            Géneros
+          </h2>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span
+              *ngFor="let genre of anime.genres"
+              class="rounded-full border
+                     border-[var(--border-color)]
+                     bg-[var(--bg-main)]
+                     px-4 py-2
+                     text-sm font-semibold
+                     text-[var(--text-muted)]">
+
+              {{ genre.name }}
+            </span>
+          </div>
+        </section>
+      </div>
+    </article>
   </section>
 </main>

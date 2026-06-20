@@ -1,4 +1,26 @@
-<div class="loading-box">
-  <div class="spinner"></div>
-  <p>{{ message }}</p>
+<div
+  role="status"
+  aria-live="polite"
+  class="flex flex-col items-center justify-center
+         rounded-2xl border
+         border-[var(--border-color)]
+         bg-[var(--bg-surface)]
+         px-6 py-10
+         text-center">
+
+  <div
+    class="h-11 w-11 animate-spin
+           rounded-full border-4
+           border-[var(--border-color)]
+           border-t-[var(--primary)]"
+    aria-hidden="true">
+  </div>
+
+  <p class="mt-4 font-semibold text-[var(--text-muted)]">
+    {{ message }}
+  </p>
+
+  <span class="sr-only">
+    Cargando contenido
+  </span>
 </div>

@@ -12,6 +12,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class AnimeCard {
   @Input() anime: any;
+  @Input() showFavoriteButton = true;
 
   showLoginModal = false;
 

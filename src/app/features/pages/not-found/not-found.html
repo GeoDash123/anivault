@@ -1,22 +1,97 @@
-<main class="not-found-page">
-  <section class="not-found-card">
+<main
+  class="flex min-h-[calc(100vh-72px)]
+         items-center justify-center
+         bg-[var(--bg-main)]
+         px-4 py-10
+         text-[var(--text-main)]">
 
-    <img
+  <section
+    class="w-full max-w-2xl
+           rounded-3xl border
+           border-[var(--border-color)]
+           bg-[var(--bg-surface)]
+           p-6 text-center
+           shadow-[0_20px_55px_var(--shadow-soft)]
+           sm:p-10">
+
+    <!-- Imagen 404 -->
+    <div
       *ngIf="errorImage"
-      class="error-cat"
-      [src]="errorImage"
-      alt="Error 404 - Página no encontrada"
-    >
+      class="mx-auto flex min-h-64
+             items-center justify-center
+             overflow-hidden rounded-2xl
+             bg-[var(--bg-soft)]
+             p-4">
 
-    <h1>Página no encontrada</h1>
+      <img
+        class="max-h-[420px] w-full
+               object-contain"
+        [src]="errorImage"
+        alt="Error 404 - Página no encontrada">
+    </div>
 
-    <p>
+    <!-- Código de error -->
+    <span
+      class="mt-7 inline-flex rounded-full
+             bg-[var(--primary-soft)]
+             px-4 py-1.5
+             text-sm font-extrabold
+             text-[var(--primary)]">
+
+      Error 404
+    </span>
+
+    <h1
+      class="mt-4 text-3xl font-extrabold
+             tracking-tight
+             sm:text-4xl">
+
+      Página no encontrada
+    </h1>
+
+    <p
+      class="mx-auto mt-4 max-w-lg
+             leading-7
+             text-[var(--text-muted)]">
+
       La ruta que intentaste abrir no existe dentro de AniVault.
     </p>
 
-    <button routerLink="/" class="home-btn">
+    <button
+      type="button"
+      routerLink="/"
+      class="mt-8 inline-flex items-center
+             justify-center gap-2
+             rounded-xl
+             bg-[var(--primary)]
+             px-6 py-3
+             font-bold text-white
+             transition
+             hover:bg-[var(--primary-hover)]
+             focus:outline-none
+             focus:ring-2
+             focus:ring-[var(--primary)]
+             focus:ring-offset-2
+             focus:ring-offset-[var(--bg-surface)]">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+
+        <path d="m3 11 9-9 9 9"></path>
+        <path d="M5 10v10h14V10"></path>
+        <path d="M9 20v-6h6v6"></path>
+      </svg>
+
       Volver al inicio
     </button>
-
   </section>
 </main>

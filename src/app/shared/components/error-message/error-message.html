@@ -1,4 +1,36 @@
-<div class="error-box">
-  <strong>Error</strong>
-  <p>{{ message }}</p>
+<div
+  role="alert"
+  aria-live="polite"
+  class="flex items-start gap-3 rounded-2xl border
+         border-[var(--danger-border)]
+         bg-[var(--danger-bg)]
+         p-4 text-[var(--danger-text)]">
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="mt-0.5 shrink-0"
+    aria-hidden="true">
+
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M12 8v4"></path>
+    <path d="M12 16h.01"></path>
+  </svg>
+
+  <div class="min-w-0">
+    <strong class="block font-bold">
+      Error
+    </strong>
+
+    <p class="mt-1 break-words text-sm leading-6">
+      {{ message }}
+    </p>
+  </div>
 </div>
